@@ -98,7 +98,7 @@ input, select, textarea {
 	}
 
 	body {
-		background: #385e82;
+		background: #698eb3;/*TODO*/
 	}
 
 		body.is-preload *, body.is-preload *:before, body.is-preload *:after {
@@ -3241,7 +3241,7 @@ input, select, textarea {
 		}
 
 		.wrapper.style1 {
-			background-color: #7592b8d9;
+			background-color: #8aabd7d9;
 		}
 
 		.wrapper.style1-alt {
@@ -3249,7 +3249,7 @@ input, select, textarea {
 		}
 
 		.wrapper.style2 {
-			background-color: #c68787c9;
+			background-color: #eca0a0c9;
 		}
 
 		.wrapper.style2-alt {
@@ -3371,7 +3371,7 @@ input, select, textarea {
 		display: -webkit-flex;
 		display: -ms-flex;
 		display: flex;
-		background-color: #385e82;
+		background-color: #385e82; /*TODO*/
 		cursor: default;
 		padding: 1.75em 2em;
 	}

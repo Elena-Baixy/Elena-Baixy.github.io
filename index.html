@@ -12,10 +12,125 @@
 		<link rel="stylesheet" href="assets/css/main.css" />
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+		
+		<!-- Responsive layout styles -->
+		<style>
+			.profile-layout {
+				display: flex;
+				align-items: flex-start;
+				gap: 3em;
+			}
+			
+			.profile-content {
+				flex: 1;
+			}
+			
+			.profile-photo {
+				flex-shrink: 0;
+			}
+			
+			.profile-photo img {
+				width: 300px;
+				height: 300px;
+				border-radius: 8px;
+			}
+			
+			.blog-item, .publication-item {
+				display: flex;
+				align-items: flex-start;
+				gap: 2em;
+				margin-bottom: 2em;
+			}
+			
+			.blog-content, .publication-content {
+				flex: 1;
+			}
+			
+			.blog-preview, .publication-preview {
+				flex-shrink: 0;
+			}
+			
+			.blog-preview img, .publication-preview img {
+				width: 320px;
+				height: 180px;
+				object-fit: cover;
+				border-radius: 8px;
+				border: 2px solid rgba(255,255,255,0.2);
+			}
+			
+			/* Mobile responsive styles */
+			@media screen and (max-width: 980px) {
+				.profile-layout {
+					flex-direction: column;
+					gap: 2em;
+				}
+				
+				.profile-content {
+					text-align: left; /* Keep text left-aligned */
+				}
+				
+				.profile-photo {
+					order: -1; /* Move photo above text on mobile */
+					text-align: center; /* Center only the photo */
+				}
+				
+				.profile-photo img {
+					width: 250px;
+					height: 250px;
+					margin: 0 auto;
+					display: block;
+				}
+				
+				.blog-item, .publication-item {
+					flex-direction: column;
+					gap: 1.5em;
+				}
+				
+				.blog-content, .publication-content {
+					text-align: left; /* Keep text left-aligned */
+				}
+				
+				.blog-preview, .publication-preview {
+					order: -1; /* Move preview above text on mobile */
+					text-align: center; /* Center only the preview image */
+				}
+				
+				.blog-preview img, .publication-preview img {
+					width: 100%;
+					max-width: 400px;
+					height: auto;
+					margin: 0 auto;
+					display: block;
+				}
+			}
+			
+			/* Smaller mobile screens */
+			@media screen and (max-width: 480px) {
+				.profile-layout {
+					gap: 1.5em;
+				}
+				
+				.profile-photo img {
+					width: 200px;
+					height: 200px;
+				}
+				
+				.blog-item, .publication-item {
+					gap: 1em;
+				}
+				
+				.blog-preview img, .publication-preview img {
+					max-width: 350px;
+				}
+			}
+		</style>
 
 
 	</head>
 	<body class="is-preload">
+		body {
+			background: #6D8B74;/*TODO*/
+		}
 
 		<!-- Sidebar -->
 			<section id="sidebar">
@@ -24,6 +139,7 @@
 						<ul>
 							<li><a href="#intro">Welcome</a></li>
 							<li><a href="#three">Publications</a></li>
+							<li><a href="#blog">Blog</a></li>
 							<li><a href="#two">CV and Experience</a></li>
 							<!-- <li><a href="#one">Projects</a></li> -->
 							<!--
@@ -57,35 +173,38 @@
 							
 							<!-- <div style="display:flex;justify:space-between;"> -->
 							
-							<p>
+							<div class="profile-layout">
+								<div class="profile-content">
+									<p>
+										I am currently a first-year PhD student in CS at
+										<a href="https://cs.uchicago.edu/">
+										University of Chicago
+										</a>
+										, advised by 
+										<a href=" https://chenhaot.com/"> Chenhao Tan
+										</a>.  I am also a member of  <a href="https://chicagohai.github.io/">Chicago Human+AI</a> lab.
+									</p>
+									
+									<p>
+										Before that, I earned B.E in Computer Science at CSE at Univeristy of Michigan, Ann Arbor. During my undergrad study, I was honored to be a member of <a href="https://lit.eecs.umich.edu/">Language and Information Technologies (LIT) lab group </a> to work with <a href="https://web.eecs.umich.edu/~mihalcea/">Rada Mihalcea</a>. I also worked on NLP inference time efficiency in <a href="https://web.eecs.umich.edu/~aprakash/">Atul Prakash</a>'s group. I am interested in doing research in Natural Language Processing. At the same time, I like photography and Game Design & Development. <a href="games.html"> Check the games I made! </a>
+									</p>
+									
+									<p>
+										<b>Research Interest:</b> As machine learning continues to advance, so does the potential for the digital divide and inequality to widen. 
+										These issues motivate my research in building transparent, efficient, and more accessible tools for social good. 
+										I believe this can be done by building interpretable models or building more cost-efficient methods
+									</p>
+									
+									<ul class="actions">
+										<li><a href="#two" class="button scrolly">Learn more</a></li>
+									</ul>
+								</div>
 								
-								I am currently a first-year PhD student in CS at
-								<a href="https://cs.uchicago.edu/">
-								University of Chicago
-								</a>
-								, advised by 
-								<a href=" https://chenhaot.com/"> Chenhao Tan
-								</a>.  I am also a member of  <a href="https://chicagohai.github.io/">Chicago Human+AI</a> lab.
-								
-								<div style="display:flex;justify:space-between;">
-								
-								<p>
-								Before that, I earned B.E in Computer Science at CSE at Univeristy of Michigan, Ann Arbor. During my undergrad study, I was honored to be a member of <a href="https://lit.eecs.umich.edu/">Language and Information Technologies (LIT) lab group </a> to work with <a href="https://web.eecs.umich.edu/~mihalcea/">Rada Mihalcea</a>. I also worked on NLP inference time efficiency in <a href="https://web.eecs.umich.edu/~aprakash/">Atul Prakash</a>'s group. I am interested in doing research in Natural Language Processing. At the same time, I like photography and Game Design & Development. <a href="games.html"> Check the games I made! </a>
-								
-								</p>
-							</p>
-						
-						<img src="./images/profile_photo.png" width = 350px height= 350px alt="profile" data-position="center center" />
-				
+								<div class="profile-photo">
+									<img src="./images/profile_photo.png" alt="profile" />
+								</div>
 							</div>
-							<p>
-							<b>Research Interest:</b> As machine learning continues to advance, so does the potential for the digital divide and inequality to widen. 
-							These issues motivate my research in building transparent, efficient, and more accessible tools for social good. 
-							I believe this can be done by building interpretable models or building more cost-efficient methods
-							</p>
-							<ul class="actions">
-								<li><a href="#two" class="button scrolly">Learn more</a></li>
-							</ul>
+							
 						</div>
 					</section>
 
@@ -94,24 +213,91 @@
 					<section id="three" class="wrapper style2 fade-up">
 						<div class="inner">
 							<h2><a href="https://scholar.google.com/citations?hl=en&user=ic3BUhMAAAAJ&view_op=list_works&gmla=AH70aAVPs4XIBi4829EERdVDcQawHCK54dZVZSCBEYLazQYUfRmtD-RZNrlHJuC3FuYApvIjPOos2O2uEpd4kaoc">Publications</a></h2>
-							<p>
-								<span><a href="https://arxiv.org/abs/2505.14905">Concept Incongruence: An Exploration of Time and Death in Role Playing</a> (preprint, 2025) <br />
-								<b>Xiaoyan Bai</b>, Ike Peng*, Aditya Singh*, Chenhao Tan <br />
-								</span>
-								</p>
-							<p>
-							<span><a href="https://arxiv.org/abs/2401.01967">A Mechanistic Understanding of Alignment Algorithms: A Case Study on DPO and Toxicity</a> (ICML, 2024) <b>Oral </b> <br />
-							Andrew Lee, <b>Xiaoyan Bai</b>, Itamar Pres, Martin Wattenberg, Jonathan K. Kummerfeld, Rada Mihalcea <br />
-							</span>
-							</p>
-							<p>
-							<span><a href="https://arxiv.org/abs/2402.06126">Learn To be Efficient: Build Structured Sparsity in Large Language Models</a> (Neurips, 2024) <b>Spotlight</b><br />
-								Haizhong Zheng, <b>Xiaoyan Bai</b>,  Xueshen Liu, Z. Morley Mao, Beidi Chen, Fan Lai, Atul Prakash <br />
-							</span>
-							</p>
+							
+							<div class="publication-item">
+								<div class="publication-content">
+									<p>
+										<span><a href="https://arxiv.org/abs/2505.14905">Concept Incongruence: An Exploration of Time and Death in Role Playing</a> (preprint, 2025) <br />
+										<b>Xiaoyan Bai</b>, Ike Peng*, Aditya Singh*, Chenhao Tan <br />
+										</span>
+									</p>
+								</div>
+								<div class="publication-preview">
+									<a href="https://arxiv.org/abs/2505.14905">
+										<img src="./images/pub_preview_1.png" alt="Concept Incongruence Publication Preview" />
+									</a>
+								</div>
+							</div>
+							
+							<div class="publication-item">
+								<div class="publication-content">
+									<p>
+										<span><a href="https://arxiv.org/abs/2401.01967">A Mechanistic Understanding of Alignment Algorithms: A Case Study on DPO and Toxicity</a> (ICML, 2024) <b>Oral </b> <br />
+										Andrew Lee, <b>Xiaoyan Bai</b>, Itamar Pres, Martin Wattenberg, Jonathan K. Kummerfeld, Rada Mihalcea <br />
+										</span>
+									</p>
+								</div>
+								<div class="publication-preview">
+									<a href="https://arxiv.org/abs/2401.01967">
+										<img src="./images/pub-preview-2.png" alt="DPO Alignment Publication Preview" />
+									</a>
+								</div>
+							</div>
+							
+							<div class="publication-item">
+								<div class="publication-content">
+									<p>
+										<span><a href="https://arxiv.org/abs/2402.06126">Learn To be Efficient: Build Structured Sparsity in Large Language Models</a> (Neurips, 2024) <b>Spotlight</b><br />
+										Haizhong Zheng, <b>Xiaoyan Bai</b>,  Xueshen Liu, Z. Morley Mao, Beidi Chen, Fan Lai, Atul Prakash <br />
+										</span>
+									</p>
+								</div>
+								<div class="publication-preview">
+									<a href="https://arxiv.org/abs/2402.06126">
+										<img src="./images/pub-preview-3.png" alt="Structured Sparsity Publication Preview" />
+									</a>
+								</div>
+							</div>
 							
 						</div>
 					</section>
+					
+				<!-- Blog -->
+				<section id="blog" class="wrapper style2-alt fade-up">
+					<div class="inner">
+						<h2>Blog</h2>
+						<div class="blog-item">
+							<div class="blog-content">
+								<p>
+									<span><a href="https://cichicago.substack.com/p/concept-incongruence-is-key-to-ai">Concept Incongruence is Key to AI Safety and Creativity</a> (July, 2025) <br />
+										⚡️Ever asked an LLM-as-Marilyn Monroe about the 2020 election? Our paper calls this concept incongruence, common in AI and human creativity. Read my blog to learn what we found, why it matters for AI safety and creativity, and what's next.
+									</span>
+								</p>
+							</div>
+							<div class="blog-preview">
+								<a href="https://cichicago.substack.com/p/concept-incongruence-is-key-to-ai">
+									<img src="./images/blog-preview-1.png" alt="Concept Incongruence Blog Preview" />
+								</a>
+							</div>
+						</div>
+						<!-- Add future blog posts here following the same pattern:
+						<div class="blog-item">
+							<div class="blog-content">
+								<p>
+									<span><a href="BLOG_URL">Blog Post Title</a> (Date) <br />
+									Brief description of the blog post.
+									</span>
+								</p>
+							</div>
+							<div class="blog-preview">
+								<a href="BLOG_URL">
+									<img src="./images/blog-preview-X.png" alt="Blog Preview" />
+								</a>
+							</div>
+						</div>
+						-->
+					</div>
+				</section>
 					
 					<!-- Two -->
 					<section id="two" class="wrapper style3 fade-up">
@@ -280,7 +466,7 @@
 			<footer id="footer" class="wrapper style1-alt">
 				<div class="inner">
 					<ul class="menu">
-						<li>&copy; 2025.05</li><li> </a></li>
+						<li>&copy; 2025.07</li><li> </a></li>
 					</ul>
 				</div>
 			</footer>

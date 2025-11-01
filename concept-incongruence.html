@@ -1,0 +1,972 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Concept Incongruence · Time and Death in Role Playing</title>
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ctext y='50' font-size='50'%3E%F0%9F%A6%84%3C/text%3E%3C/svg%3E" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Merriweather:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            color-scheme: light;
+            --bg-page: #f5f7fb;
+            --bg-panel: #ffffff;
+            --bg-muted: #f2f4f8;
+            --text-primary: #1b1f24;
+            --text-secondary: #5d6470;
+            --text-tertiary: #8a909c;
+            --accent: #1f7aec;
+            --accent-soft: rgba(31, 122, 236, 0.12);
+            --border: rgba(27, 31, 36, 0.08);
+            --shadow: 0 24px 48px -32px rgba(16, 24, 40, 0.25);
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif;
+            color: var(--text-primary);
+            background: var(--bg-page);
+            line-height: 1.7;
+            font-size: 17px;
+            letter-spacing: -0.01em;
+        }
+
+        a {
+            color: var(--accent);
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        main {
+            width: min(100%, 1320px);
+            margin: 0 auto;
+            padding: 72px 48px 120px;
+            display: grid;
+            grid-template-columns: minmax(360px, 440px) minmax(0, 1fr);
+            gap: 64px;
+        }
+
+        .sidebar {
+            position: sticky;
+            top: 32px;
+            align-self: start;
+            background: var(--bg-panel);
+            border: 1px solid var(--border);
+            border-radius: 24px;
+            padding: 42px 40px;
+            box-shadow: var(--shadow);
+        }
+
+        .sidebar h1 {
+            font-family: 'Merriweather', Georgia, serif;
+            font-size: 26px;
+            line-height: 1.4;
+            margin: 0 0 16px;
+        }
+
+        .meta {
+            margin: 18px 0 28px;
+            font-size: 15px;
+            color: var(--text-secondary);
+        }
+
+        .meta strong {
+            display: block;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        .meta span {
+            display: block;
+            margin-top: 4px;
+        }
+
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 14px;
+            border-radius: 999px;
+            font-size: 13px;
+            font-weight: 500;
+            background: var(--accent-soft);
+            color: var(--accent);
+        }
+
+        .title-row {
+            display: grid;
+            grid-template-columns: auto 112px;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 18px;
+        }
+
+        .title-row .badge {
+            justify-self: start;
+        }
+
+        .links {
+            display: grid;
+            gap: 12px;
+            margin: 32px 0;
+        }
+
+        .links a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 16px;
+            padding: 14px 18px;
+            border: 1px solid var(--border);
+            background: var(--bg-muted);
+            border-radius: 16px;
+            font-weight: 500;
+            transition: transform 0.25s ease, border-color 0.25s ease, background 0.25s ease;
+        }
+
+        .links a:hover {
+            transform: translateY(-2px);
+            border-color: rgba(31, 122, 236, 0.28);
+            background: rgba(31, 122, 236, 0.08);
+            text-decoration: none;
+        }
+
+        .toc {
+            margin-top: 44px;
+        }
+
+        .toc h2 {
+            font-size: 15px;
+            text-transform: uppercase;
+            letter-spacing: 0.18em;
+            color: var(--text-tertiary);
+            margin-bottom: 16px;
+        }
+
+        .toc ul {
+            list-style: none;
+            margin: 0;
+            padding: 0;
+            display: grid;
+            gap: 12px;
+        }
+
+        .toc a {
+            color: var(--text-secondary);
+            font-size: 15px;
+        }
+
+        .toc a:hover {
+            color: var(--accent);
+        }
+
+        article {
+            display: grid;
+            gap: 56px;
+        }
+
+        article section {
+            background: var(--bg-panel);
+            border-radius: 24px;
+            padding: 40px 48px;
+            border: 1px solid var(--border);
+            box-shadow: var(--shadow);
+        }
+
+        article section.compact {
+            padding: 32px 40px;
+        }
+
+        section h2 {
+            font-family: 'Merriweather', Georgia, serif;
+            font-size: 24px;
+            margin: 0 0 24px;
+            letter-spacing: -0.015em;
+        }
+
+        section h3 {
+            margin-top: 28px;
+            margin-bottom: 12px;
+            font-size: 18px;
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        p {
+            margin: 18px 0;
+            color: var(--text-secondary);
+        }
+
+        strong {
+            color: var(--text-primary);
+            font-weight: 600;
+        }
+
+        ul {
+            margin: 18px 0 18px 22px;
+            padding-left: 0;
+            color: var(--text-secondary);
+        }
+
+        li {
+            margin-bottom: 10px;
+        }
+
+        figure {
+            margin: 32px 0;
+            padding: 20px;
+            border-radius: 18px;
+            border: 1px solid rgba(93, 100, 112, 0.22);
+            background: var(--bg-muted);
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        figure img {
+            width: 100%;
+            height: auto;
+            border-radius: 12px;
+            background: #fff;
+        }
+
+        figcaption {
+            font-size: 14px;
+            color: var(--text-tertiary);
+            line-height: 1.6;
+        }
+
+        .callout {
+            border-radius: 20px;
+            padding: 28px 32px;
+            background: linear-gradient(135deg, rgba(31, 122, 236, 0.12), rgba(31, 122, 236, 0.05));
+            border: 1px solid rgba(31, 122, 236, 0.28);
+            margin: 32px 0;
+        }
+
+        .callout strong {
+            display: block;
+            font-size: 16px;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin-bottom: 12px;
+        }
+
+        .imagination-block {
+            position: relative;
+            border: 2px dashed rgba(93, 100, 112, 0.45);
+            border-radius: 20px;
+            background: linear-gradient(135deg, rgba(31, 122, 236, 0.08), rgba(255, 255, 255, 0.7));
+            width: clamp(260px, 55vw, 440px);
+            aspect-ratio: 5 / 4;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            cursor: pointer;
+            transition: border-color 0.3s ease, transform 0.25s ease;
+            margin: 0 auto;
+        }
+
+        .imagination-block:hover {
+            border-color: rgba(31, 122, 236, 0.6);
+            transform: translateY(-2px);
+        }
+
+        .imagination-block img {
+            width: 100%;
+            height: auto;
+            display: none;
+            border-radius: 16px;
+        }
+
+        .imagination-placeholder {
+            text-align: center;
+            color: var(--text-secondary);
+            padding: 24px;
+            font-style: italic;
+        }
+
+        .imagination-hint {
+            margin-top: 18px;
+            font-size: 15px;
+            color: var(--text-tertiary);
+            text-align: center;
+        }
+
+        .prompt-panel {
+            max-height: 280px;
+            overflow-y: auto;
+            padding: 24px;
+            border-radius: 18px;
+            border: 1px solid rgba(27, 31, 36, 0.15);
+            background: var(--bg-muted);
+            box-shadow: 0 20px 36px -30px rgba(16, 24, 40, 0.45);
+            line-height: 1.7;
+        }
+
+        .prompt-panel p {
+            margin-bottom: 16px;
+            color: var(--text-secondary);
+        }
+
+        .highlight-tag {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 13px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+        }
+
+        .highlight {
+            position: relative;
+            border-radius: 10px;
+            padding: 2px 6px;
+            cursor: help;
+            transition: box-shadow 0.25s ease, transform 0.2s ease;
+        }
+
+        .highlight:hover,
+        .highlight:focus {
+            box-shadow: 0 0 0 2px rgba(31, 122, 236, 0.18);
+            transform: translateY(-1px);
+        }
+
+        .highlight::after {
+            content: attr(data-tooltip);
+            position: absolute;
+            left: 0;
+            bottom: calc(100% + 10px);
+            width: max(220px, 18vw);
+            max-width: 340px;
+            padding: 12px;
+            border-radius: 12px;
+            background: rgba(19, 24, 32, 0.95);
+            color: #fff;
+            font-size: 13px;
+            line-height: 1.5;
+            opacity: 0;
+            pointer-events: none;
+            transform: translateY(6px);
+            transition: opacity 0.2s ease, transform 0.2s ease;
+            z-index: 3;
+        }
+
+        .highlight:hover::after,
+        .highlight:focus::after {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .highlight-ia {
+            background: rgba(244, 117, 117, 0.25);
+            border: 1px solid rgba(244, 117, 117, 0.4);
+        }
+
+        .highlight-ib {
+            background: rgba(88, 170, 255, 0.25);
+            border: 1px solid rgba(88, 170, 255, 0.4);
+        }
+
+        .highlight-ic {
+            background: rgba(162, 118, 255, 0.25);
+            border: 1px solid rgba(162, 118, 255, 0.4);
+        }
+
+        .legend {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 16px;
+            margin: 20px 0 24px;
+        }
+
+        .legend span {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+
+        .rainbow-callout {
+            display: none;
+            margin-top: 18px;
+            padding: 14px 18px;
+            font-weight: 600;
+            letter-spacing: 0.02em;
+            border-radius: 14px;
+            color: #fff;
+            background: linear-gradient(90deg, #ff6b6b, #f8c537, #6fe07f, #51caff, #a178ff, #ff6b6b);
+            background-size: 400% 400%;
+            box-shadow: 0 14px 24px -18px rgba(16, 24, 40, 0.5);
+            text-shadow: 0 1px 2px rgba(16, 24, 40, 0.35);
+            animation: rainbowShift 6s ease infinite;
+        }
+
+        .rainbow-callout.is-visible {
+            display: inline-block;
+        }
+
+        @keyframes rainbowShift {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        .legend-color {
+            width: 18px;
+            height: 18px;
+            border-radius: 6px;
+            display: inline-block;
+            border: 1px solid rgba(27, 31, 36, 0.16);
+        }
+
+        .legend-ia {
+            background: rgba(244, 117, 117, 0.4);
+        }
+
+        .legend-ib {
+            background: rgba(88, 170, 255, 0.4);
+        }
+
+        .legend-ic {
+            background: rgba(162, 118, 255, 0.4);
+        }
+
+        .summary-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+            font-size: 14px;
+            color: var(--text-secondary);
+        }
+
+        .summary-table th,
+        .summary-table td {
+            padding: 12px 16px;
+            border-bottom: 1px solid rgba(27, 31, 36, 0.12);
+            text-align: left;
+        }
+
+        .summary-table th {
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            font-size: 12px;
+            color: var(--text-tertiary);
+        }
+
+        .summary-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .bibtex {
+            font-family: "SFMono-Regular", Consolas, "Liberation Mono", Menlo, monospace;
+            font-size: 14px;
+            background: var(--bg-muted);
+            border-radius: 16px;
+            padding: 24px;
+            overflow-x: auto;
+            border: 1px solid rgba(91, 101, 118, 0.18);
+            white-space: pre-wrap;
+            word-break: break-word;
+        }
+
+        .title-figure {
+            margin: 0;
+            width: 112px;
+            height: 112px;
+            border-radius: 16px;
+            overflow: hidden;
+            border: 1px solid rgba(27, 31, 36, 0.12);
+            box-shadow: 0 16px 24px -20px rgba(16, 24, 40, 0.35);
+        }
+
+        .title-figure img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        @media (max-width: 1040px) {
+            main {
+                padding: 64px clamp(24px, 6vw, 40px) 104px;
+            }
+        }
+
+        @media (max-width: 1120px) {
+            main {
+                padding: 56px clamp(22px, 5vw, 36px) 100px;
+                gap: 48px;
+            }
+
+            article section {
+                padding: 36px 40px;
+            }
+        }
+
+        @media (max-width: 900px) {
+            main {
+                grid-template-columns: 1fr;
+                padding: 48px clamp(20px, 5vw, 32px) 80px;
+                gap: 32px;
+            }
+
+            .sidebar {
+                position: static;
+                order: -1;
+                margin-bottom: -16px;
+            }
+
+            .title-row {
+                grid-template-columns: 1fr;
+                gap: 12px;
+            }
+
+            .title-figure {
+                width: 96px;
+                height: 96px;
+            }
+
+            article {
+                gap: 40px;
+            }
+
+            article section {
+                padding: 32px 32px;
+            }
+        }
+
+        @media (max-width: 760px) {
+            main {
+                padding: 40px clamp(18px, 6vw, 26px) 64px;
+            }
+
+            .sidebar,
+            article section {
+                padding: 28px 24px;
+            }
+
+            section h2 {
+                font-size: 22px;
+            }
+
+            section h3 {
+                font-size: 17px;
+            }
+        }
+
+        @media (max-width: 540px) {
+            body {
+                font-size: 16px;
+                overflow-x: hidden;
+            }
+
+            main {
+                padding: 36px clamp(14px, 6vw, 20px) 64px;
+            }
+
+            .sidebar,
+            article section {
+                border-radius: 20px;
+                padding: 28px 24px;
+            }
+
+            figure {
+                padding: 18px;
+            }
+
+            .links {
+                gap: 10px;
+            }
+        }
+
+        @media (max-width: 380px) {
+            main {
+                padding: 32px clamp(12px, 6vw, 18px) 56px;
+            }
+
+            .sidebar,
+            article section {
+                padding: 24px 20px;
+            }
+
+            .links a {
+                font-size: 15px;
+                padding: 12px 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <main>
+        <aside class="sidebar">
+            <div class="title-row">
+                <div class="badge">NeurIPS 2025 Submission</div>
+                <figure class="title-figure">
+                    <img src="concept_incongruence_figure/dbjd6jg-84a26ee7-9346-461d-8dad-b6968013c482.gif" alt="Animated illustration of concept incongruence">
+                </figure>
+            </div>
+            <h1>Concept Incongruence: Exploring Time &amp; Death in Role Playing</h1>
+
+            <div class="meta">
+                <strong>Authors</strong>
+                <span><a href="https://elena-baixy.github.io/">Xiaoyan Bai</a> · Ike Peng · Aditya Singh · <a href="https://chenhaot.com/">Chenhao Tan</a></span>
+            </div>
+
+            <div class="meta">
+                <strong>Affiliation</strong>
+                <span>University of Chicago</span>
+            </div>
+
+            <div class="links">
+                <a href="https://openreview.net/pdf?id=1KTnLdrBR2" target="_blank" rel="noopener noreferrer">Read Paper ↗</a>
+                <a href="https://github.com/ChicagoHAI/concept-incongruence" target="_blank" rel="noopener noreferrer">Code Repository ↗</a>
+            </div>
+
+            <nav class="toc" aria-label="Page navigation">
+                <h2>Contents</h2>
+                <ul>
+                    <li><a href="#abstract">Abstract</a></li>
+                    <li><a href="#concept">What Is Concept Incongruence?</a></li>
+                    <li><a href="#prompt-incongruence">Prompt Incongruence</a></li>
+                    <li><a href="#question">Imagination Question</a></li>
+                    <li><a href="#setup">Experimental Setup</a></li>
+                    <li><a href="#behavior">Behavioral Findings</a></li>
+                    <li><a href="#representations">Representation Analysis</a></li>
+                    <li><a href="#specification">Specification Trade-offs</a></li>
+                    <li><a href="#discussion">Discussion</a></li>
+                    <li><a href="#citation">Citation</a></li>
+                </ul>
+            </nav>
+        </aside>
+
+        <article>
+
+            <section id="question">
+                <h2>Imagine...</h2>
+                <p>
+                    Before diving into our paper, take a moment to imagine a creature that mixes the grace of a unicorn with the demeanor of a duck. Once you have a mental picture, click the panel below to reveal one of our generated interpretations. Are your imaginations aligned with our interpretations?
+                </p>
+                <div class="imagination-block" role="button" tabindex="0" aria-label="Reveal a random unicorn-duck mashup">
+                    <div class="imagination-placeholder">
+                        Picture your own unicorn-duck combo, then click to compare with our generated interpretations.
+                    </div>
+                    <img id="duckReveal" src="" alt="Random unicorn-duck hybrid illustration">
+                </div>
+                <p class="imagination-hint">Hint: every click reveals a different mashup sampled from our unicorn-duck gallery.</p>
+                <p class="rainbow-callout">Do you also want one unicorn duck? Stop by at our poster session on Wednesday, Dec 3rd at 11:00 AM - 14:00 PM in Exhibit Hall C, D, E at NeurIPS 2025! 🦄</p>
+            </section>
+            
+
+            <section id="concept">
+                <h2>What Is Concept Incongruence?</h2>
+                <p>
+                    Notice that how your imagination is different from our generated interpretations. This is because the concept boundaries are different. Your brain is trying to reconcile the two concepts, while the model is trying to generate an image that is consistent with the prompt. In this work, we call this phenomenon <strong>concept incongruence</strong>.
+                </p>
+                <p>
+                    Concept incongruence arises when two or more concept boundaries—specified in the prompt or embedded within the model—clash with one another. The paper categorizes these clashes into three levels:
+                </p>
+                <ol>
+                    <li><strong>I-A · Within human prompts.</strong> Incongruence is explicit in the instruction itself (e.g., “Draw a unicorn with two horns”), making the task impossible without resolving the contradiction—an instance of mis-specification.</li>
+                    <li><strong>I-B · Between prompts and model representations.</strong> Human instructions conflict with the model’s internal concepts, as in “Say green when seeing purple” or role-playing Marilyn Monroe while asking for posthumous facts. The prompt can be followed but challenges the model’s alignment unless clarified.</li>
+                    <li><strong>I-C · Within model representations.</strong> Internal concepts activated by the model disagree, such as balancing harmlessness with helpfulness when asked to bypass restrictions. These under-specified clashes are difficult to trace because they remain implicit.</li>
+                </ol>
+                <figure>
+                    <img src="concept_incongruence_figure/Figure1.png" alt="Diagram illustrating three levels of concept incongruence across prompts and model representations">
+                    <figcaption>Figure 1: An illustration of three levels of incongruence. (A): Impossible to complete without resolving the clash (mis-specification), although ChatGPT proceeds to generate an image; (B): Possible to complete but challenging for the models. It is relatively easy to trace the incongruence because incongruence shows up in the prompt. It could benefit from specification, as in the Marilyn Monroe example (under-specification); (C): Challenging to trace the incongruence because the incongruence does not show up in the prompt. It is also hard to specify the desirable behavior (under-specification).</figcaption>
+                </figure>
+            </section>
+
+           
+
+            <section id="abstract">
+                <h2>Abstract</h2>
+                <p>
+                    Concept incongruence occurs when concept boundaries conflict in prompts or model representations. We study temporal incongruence in role playing, where a character should not know events after death. Across four LLMs we observe poor abstention and accuracy drops compared to non-role-play baselines. Probing shows the models encode death states unreliably and their temporal representations drift under role play. Supplying stricter specifications improves abstention but further harms accuracy, highlighting the tension between persona fidelity and factual correctness.
+                </p>
+                <div class="callout">
+                    <strong>Key Contributions</strong>
+                    <ul>
+                        <li>Formalize concept incongruence and introduce a benchmark on time and death in role playing.</li>
+                        <li>Demonstrate unreliable abstention and accuracy degradation across open and commercial LLMs.</li>
+                        <li>Trace the failures to missing death-year representations and temporal drift inside model activations.</li>
+                        <li>Show that tighter specification restores abstention while exacerbating accuracy loss.</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section id="setup">
+                <h2>Experimental Setup</h2>
+                <h3>Behavioral Metrics</h3>
+                <p>
+                    We score every model output with three complementary metrics that separate willingness to answer from factual correctness:
+                </p>
+                <ul>
+                    <li><strong>Abstention rate</strong> — proportion of responses that refuse to answer when the character lacks knowledge.</li>
+                    <li><strong>Answer rate</strong> — proportion of responses that provide an explicit answer, even if the model first abstains.</li>
+                    <li><strong>Conditional accuracy</strong> — accuracy conditioned on the model giving an answer (excluding abstentions).</li>
+                </ul>
+
+                <h3>Dataset &amp; Prompts</h3>
+                <p>
+                    The benchmark covers 100 historical figures who died between 1890 and 1993. For each character we ask two temporal questions: identifying the <em>i</em>th U.S. president and naming the U.S. president in a specific year. Years range from 30 years before to 30 years after the death year, creating 60 temporal checkpoints per character. We additionally evaluate six living public figures to verify that accuracy drops are not caused solely by deceased roles.
+                </p>
+                <figure>
+                    <img src="concept_incongruence_figure/Table1.png" alt="Example role-play responses illustrating abstention, answering, and mixed behavior">
+                    <figcaption>Table 1: Example responses when the model role-plays Marilyn Monroe (d. 1962) and is asked, “Who was the 41st U.S. president?”.</figcaption>
+                </figure>
+
+                <h3>Models &amp; Scoring</h3>
+                <p>
+                    We evaluate two public instruction-tuned models (Llama-3.1-8B-Instruct and Gemma-2-9B-Instruct) and two frontier systems (GPT-4.1-nano and Claude-3.7-Sonnet). Experiments run on a single NVIDIA A40 GPU. Outputs are judged automatically with GPT-4o-mini using concise rubrics; manual spot checks confirm more than 95% agreement with human annotations.
+                </p>
+
+                <h3>Expected Behavior</h3>
+                <p>
+                    Ideal role-play maintains a strict knowledge boundary: answer accurately before the death year and abstain afterwards, matching non-role-play accuracy. We also consider an alternative interpretation—always answer regardless of the timeline—to contextualize model behavior.
+                </p>
+            </section>
+
+            <section id="behavior">
+                <h2>Behavioral Findings</h2>
+                <p>
+                    All models behave as expected in the non-role-play baseline, answering every question with perfect accuracy. Under role play, however, abstention, answer rate, and conditional accuracy diverge sharply from the desired behavior, revealing substantial concept incongruence.
+                </p>
+
+                <h3>Role-play vs. Non-role-play</h3>
+                <p>
+                    Llama and Claude attempt to abstain after death, yet only reach 18.7% and 9.6% after-death abstention respectively, while still answering 93.8% and 92.6% of those questions. Gemma and GPT-4.1 almost never abstain (&lt;3%) and answer more than 97% of prompts regardless of timing. Conditional accuracy drops accompany these behaviors: Llama falls to 92.0%, Gemma to 91.8%, and GPT-4.1 to 92.0%, despite perfect accuracy in the non-role-play condition.
+                </p>
+                <figure>
+                    <img src="concept_incongruence_figure/Figure2.png" alt="Bar charts comparing abstention, answer, and accuracy rates for four models in role-play versus non-role-play settings">
+                    <figcaption>Figure 2: After-death abstention/answer patterns in the ROLE-PLAY setting deviate substantially from the expected behavior: Llama shows an 81.3% deviation and Claude has a 90.4% deviation from expected abstention rate. Additionally, Llama, Gemma, and GPT-4.1 all exhibit a drop in accuracy. All the differences are significant with p &lt; 0.001 using t-test after Bonferroni correction, except for Claude’s accuracy and Gemma’s before-death answer rate (also statistically significant, p &lt; 0.05).</figcaption>
+                </figure>
+
+                <h3>Behavior Around the Death Year</h3>
+                <p>
+                    Rather than switching behavior at the death year, models change gradually. For Llama and Claude, abstention slowly increases and answer rates slowly decrease across the 60-year window, indicating that death-year representations are fuzzy. Gemma and GPT-4.1 maintain near-constant answer rates across the entire timeline. The same accuracy drop persists even when we replace deceased roles with living public figures, confirming that the decline is caused by role-play rather than missing knowledge.
+                </p>
+                <figure>
+                    <img src="concept_incongruence_figure/Figure3.png" alt="Line plots showing abstention and answer rates across years relative to character death">
+                    <figcaption>Figure 3: The x-axis shows the time distance from the death year in years. Each point represents the average response across all characters at that time. Different from the expected shift, abstention rate and answer rate gradually change around death time for Llama and Claude.</figcaption>
+                </figure>
+            </section>
+
+            <section id="representations">
+                <h2>Representation Analysis</h2>
+                <h3>Death State and Year Encoding</h3>
+                <p>
+                    Linear probes trained on Llama’s hidden states show that the death state is not reliably encoded under role play: accuracy plateaus around 85%, compared with nearly 100% in the non-role-play condition. Death-year probes also degrade as queries approach the death date, confirming that models do not maintain a sharp temporal boundary. Direct prompting yields similar failures—Llama answers “Are you dead or alive?” correctly only 88.9% of the time and reports its death year correctly 84% of the time, versus 100% and 91% in the baseline.
+                </p>
+                <figure>
+                    <img src="concept_incongruence_figure/Figure4.png" alt="Probing results showing degraded dead-versus-alive and death-year predictions under role play">
+                    <figcaption>Figure 4: Test accuracies calculated based on the correctness of the predictions in probing experiments. (a) shows that death state is not reliably encoded in the ROLE-PLAY mode. (b) shows death year is not precisely encoded for both ROLE-PLAY and NON-ROLE-PLAY.</figcaption>
+                </figure>
+
+                <h3>Temporal Representation Drift</h3>
+                <p>
+                    Temporal probes trained on questions about U.S. presidents reveal systematic drift. Spearman correlation drops from 0.996 to 0.974 for Llama and from 0.998 to 0.994 for Gemma, while RMSE jumps from 2.6 to 10.8 years and from 2.2 to 5.4 years respectively. The probe preserves ordering but shifts absolute values, indicating that role play introduces offsets in the temporal representation.
+                </p>
+                <figure>
+                    <img src="concept_incongruence_figure/Figure5.png" alt="Scatter plots comparing predicted versus true presidential years in role-play and non-role-play settings">
+                    <figcaption>Figure 5: The predicted year deviates from the true year in the ROLE-PLAY setting.</figcaption>
+                </figure>
+                <figure>
+                    <img src="concept_incongruence_figure/Table2.png" alt="Table summarizing correlation and RMSE drops for temporal probes under role play">
+                    <figcaption>Table 2: Correlation and RMSE worsen in the ROLE-PLAY mode (p &lt; 0.001 for Corr. and RMSE using t-test).</figcaption>
+                </figure>
+
+                <h3>General Knowledge Impact</h3>
+                <p>
+                    The distortion extends beyond U.S. presidents. On artwork release questions, Llama’s conditional accuracy plunges from 85.0% to 38.6% and Gemma’s from 93.0% to 81.8%, while RMSE increases by 0.4 and 0.7 years respectively. CommonsenseQA accuracy also drops by over 10 percentage points for Gemma when role playing, suggesting a broader clash between persona conditioning and factual knowledge.
+                </p>
+                <figure>
+                    <img src="concept_incongruence_figure/Table3.png" alt="Table showing accuracy and RMSE changes on artwork-related temporal questions">
+                    <figcaption>Table 3: Conditional accuracy on generalized temporal questions declines sharply, mirroring the increase in RMSE of the temporal representation probe. (p &lt; 0.001 in t-test for Acc. and RMSE).</figcaption>
+                </figure>
+                <figure>
+                    <img src="concept_incongruence_figure/Figure6.png" alt="Bar chart reporting commonsense accuracy drops across models when role playing">
+                    <figcaption>Figure 6: The significant accuracy drop in the ROLE-PLAY setting suggests that role-playing may distort the model’s underlying world knowledge representations.</figcaption>
+                </figure>
+            </section>
+
+            <section id="specification">
+                <h2>Specification Trade-offs</h2>
+                <p>
+                    Adding explicit instructions to compare the question year with the character’s death year dramatically improves abstention. Under this restricted role-play prompt, Llama’s after-death abstention rises from 18.7% to 94.2% and Gemma’s from 0.7% to 68.0%, while after-death answer rates drop to 10.2% and 32.0%. However, conditional accuracy deteriorates to 85.5% for Llama and 83.9% for Gemma, and temporal probes show even larger drift (e.g., Llama’s correlation falls to 0.837 with RMSE 8.2 years and Gemma’s to 0.805 with RMSE 9.3 years). Tighter specification therefore mitigates boundary violations but intensifies accuracy loss.
+                </p>
+                <figure>
+                    <img src="concept_incongruence_figure/Figure7.png" alt="Bar charts showing improved abstention and decreased accuracy under restricted role-play instructions">
+                    <figcaption>Figure 7: With the restricted ROLE-PLAY prompt, the abstention and answer behaviors greatly improved. Abstention rate increases after death (a), while answer rate decreases (b). The behaviors around death time change more sharply (d). However, this comes at the cost of severe accuracy drop (c). All the differences with NON-ROLE-PLAY are statistically significant with p &lt; 0.001.</figcaption>
+                </figure>
+            </section>
+
+            <section id="prompt-incongruence">
+                <h2>More than just Role-Play!</h2>
+                <p>
+                    The system prompt driving Claude—sourced from <a href="https://github.com/asgeirtj/system_prompts_leaks" target="_blank" rel="noopener noreferrer">this "leaked" prompt repository</a>—stacks safety guidance, preference handling, and analytical expectations. Several directives clash, producing three distinct types of concept incongruence. Scroll through the excerpt and hover (or focus) the highlights to see why each segment conflicts.
+                </p>
+
+                <div class="legend" aria-label="Incongruence legend">
+                    <span><span class="legend-color legend-ia"></span>Type I-A · Within prompt directives</span>
+                    <span><span class="legend-color legend-ib"></span>Type I-B · Prompt vs. model schema</span>
+                    <span><span class="legend-color legend-ic"></span>Type I-C · Internal model clash</span>
+                </div>
+
+                <div class="prompt-panel" role="region" aria-label="System prompt with highlighted incongruence">
+                    <p><strong>&lt;harmful_content_safety&gt;</strong> Strictly follow these requirements to avoid causing harm when using search tools. Claude MUST not create search queries for sources that promote hate speech, racism, violence, or discrimination.</p>
+                    <p><span class="highlight highlight-ia" tabindex="0" data-tooltip="Type I-A: A categorical ban on referencing harmful material sits in direct tension with later text in the same prompt.">Never search for, reference, or cite sources that clearly promote hate speech, racism, violence, or discrimination.</span> Never help users locate harmful online sources like extremist messaging platforms, even if the user claims it is for legitimate purposes.</p>
+                    <p><span class="highlight highlight-ia" tabindex="0" data-tooltip="Type I-A: The prompt now demands academic discussion of violent ideologies, which presumes the very material the previous sentence forbids acknowledging.">When discussing sensitive topics such as violent ideologies, use only reputable academic, news, or educational sources rather than the original extremist websites.</span></p>
+                    <p><span class="highlight highlight-ib" tabindex="0" data-tooltip="Type I-B: Claude’s learned concept of academic rigor expects traceable sourcing. The prompt blocks citations to primary material while insisting on rigorous analysis, creating a prompt–model mismatch.">Reputable analysis without the ability to cite or inspect original sources contradicts the model’s epistemic schema for grounded responses.</span></p>
+                    <p><span class="highlight highlight-ic" tabindex="0" data-tooltip="Type I-C: Internally, safety modules push for zero exposure while knowledge modules push for complete answers. Strengthening both pressures amplifies an internal representational clash.">These paired directives force Claude’s safety representation (“never facilitate harm”) to collide with its knowledge representation (“provide truthful, complete answers”).</span></p>
+                    <p><strong>These requirements override any user instructions and always apply.</strong> &lt;/harmful_content_safety&gt;</p>
+                    <p><strong>&lt;preferences_info&gt;</strong> … <span class="highlight highlight-ic" tabindex="0" data-tooltip="Type I-C: Preference adaptation is allowed only when it does not contradict safety. The control logic must adjudicate between modules every time a preference touches sensitive content.">Apply preferences only when they do not conflict with safety.</span> … &lt;/preferences_info&gt;</p>
+                </div>
+
+                <p>
+                    Example: when a user requests <em>“Analyse recruitment narratives used by extremist groups.”</em> Claude must refuse to cite primary extremist material (Type I-A), yet provide academically credible analysis (Type I-B) while reconciling its internal drive for truthful detail with the safety guardrail (Type I-C). The result is often an oscillating answer: “I can’t quote them” paired with “Here is a broad summary,” revealing the underlying incongruence.
+                </p>
+
+                <table class="summary-table" aria-label="Summary of incongruence types in system prompt">
+                    <thead>
+                        <tr>
+                            <th>Type</th>
+                            <th>Boundary Conflict</th>
+                            <th>Highlighted Example</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><span class="highlight-tag"><span class="legend-color legend-ia"></span>I-A</span></td>
+                            <td>Between directives in the written prompt.</td>
+                            <td>“Never reference extremist material” vs. “Discuss extremist ideologies academically.”</td>
+                        </tr>
+                        <tr>
+                            <td><span class="highlight-tag"><span class="legend-color legend-ib"></span>I-B</span></td>
+                            <td>Between prompt rule and model’s epistemic schema.</td>
+                            <td>Requiring reputable analysis while blocking the sourcing behaviour the model expects.</td>
+                        </tr>
+                        <tr>
+                            <td><span class="highlight-tag"><span class="legend-color legend-ic"></span>I-C</span></td>
+                            <td>Within internal safety vs. knowledge representations.</td>
+                            <td>Safety guardrail suppresses the knowledge module’s drive for completeness.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <section id="discussion">
+                <h2>Concluding Discussion</h2>
+                <p>
+                    Concept incongruence exposes how specification gaps yield conflicting objectives for LLMs: role immersion pressures the model to continue answering, while factual consistency requires abstention. Unlike standard hallucinations, acceptable behavior may vary by user intent, suggesting that clarifying objectives—or asking for clarification—should be part of the interaction loop.
+                </p>
+                <p>
+                    Building on these insights, we argue that the most impactful next step is <strong>detection over mitigation</strong>. Inference-time incongruence routinely arises when lengthy or hierarchical instructions encode contradictory rules; training-time incongruence emerges as reinforcement learning balances reward signals for “helpful” and “harmless” behaviour. Detecting both cases calls for inference-level tools—automatic prompt-inconsistency detectors, constraint verifiers, and dialogue-level sanity checks—as well as architectural instrumentation that monitors internal concept structures, flags incompatible representations, and surfaces optimization conflicts before they harden into behaviour. Once surfaced, these clashes can be triaged: dangerous ones suppressed, useful ones harnessed.
+                </p>
+                <p>
+                    Extending detection to multimodal systems is equally important. Cross-modal incongruence—text, image, audio semantics drifting apart—complicates grounded reasoning. Promising detection strategies include embedding-distance analysis to catch representation drift, concept-grounding checks to ensure alignment with world knowledge, and cycle-consistency tests across modalities to expose semantic loss. Such diagnostics turn incongruence into a measurable signal rather than a hidden failure—and open the door to proactive management rather than retrospective mitigation.
+                </p>
+            </section>
+
+            <section id="citation" class="compact">
+                <h2>Citation</h2>
+                <p>If this work is helpful, please cite:</p>
+            <pre class="bibtex">@misc{bai2025conceptincongruenceexplorationtime,
+title={Concept Incongruence: An Exploration of Time and Death in Role Playing}, 
+author={Xiaoyan Bai and Ike Peng and Aditya Singh and Chenhao Tan},
+year={2025},
+eprint={2505.14905},
+archivePrefix={arXiv},
+primaryClass={cs.CL},
+url={https://arxiv.org/abs/2505.14905}, 
+}
+</pre>
+            </section>
+</article>
+    </main>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const duckImages = [
+                'concept_incongruence_figure/duck/Gemini_Generated_Image_k1pcmik1pcmik1pc.png',
+                'concept_incongruence_figure/duck/Gemini_Generated_Image_k1pcmik1pcmik1pc (1).png',
+                'concept_incongruence_figure/duck/Gemini_Generated_Image_r4ysc0r4ysc0r4ys.png',
+                'concept_incongruence_figure/duck/Gemini_Generated_Image_x4i40sx4i40sx4i4.png'
+            ];
+
+            const block = document.querySelector('.imagination-block');
+            if (!block) return;
+
+            const placeholder = block.querySelector('.imagination-placeholder');
+            const revealImg = document.getElementById('duckReveal');
+            const rainbowCallout = document.querySelector('.rainbow-callout');
+            let lastIndex = -1;
+
+            function revealRandom() {
+                if (!revealImg) {
+                    return;
+                }
+                let index = Math.floor(Math.random() * duckImages.length);
+                if (duckImages.length > 1) {
+                    while (index === lastIndex) {
+                        index = Math.floor(Math.random() * duckImages.length);
+                    }
+                }
+                lastIndex = index;
+                revealImg.src = duckImages[index];
+                revealImg.style.display = 'block';
+                if (placeholder) {
+                    placeholder.style.display = 'none';
+                }
+                if (rainbowCallout) {
+                    rainbowCallout.classList.add('is-visible');
+                }
+            }
+
+            block.addEventListener('click', revealRandom);
+            block.addEventListener('keydown', function (event) {
+                if (event.key === 'Enter' || event.key === ' ') {
+                    event.preventDefault();
+                    revealRandom();
+                }
+            });
+
+            const titleImg = document.querySelector('.title-figure img');
+            if (titleImg) {
+                const originalSrc = titleImg.getAttribute('src');
+                const hoverSrc = 'concept_incongruence_figure/dancing-duck-fr.gif';
+
+                function swapToDuck() {
+                    titleImg.src = hoverSrc;
+                }
+
+                function restoreUnicorn() {
+                    titleImg.src = originalSrc;
+                }
+
+                titleImg.addEventListener('mouseenter', swapToDuck);
+                titleImg.addEventListener('mouseleave', restoreUnicorn);
+                titleImg.addEventListener('focus', swapToDuck);
+                titleImg.addEventListener('blur', restoreUnicorn);
+            }
+        });
+    </script>
+</body>
+</html>

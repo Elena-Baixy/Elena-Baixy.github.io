@@ -619,7 +619,7 @@
     <main>
         <aside class="sidebar">
             <div class="title-row">
-                <div class="badge">NeurIPS 2025 Submission</div>
+                <div class="badge">NeurIPS 2025</div>
                 <figure class="title-figure">
                     <img src="concept_incongruence_figure/dbjd6jg-84a26ee7-9346-461d-8dad-b6968013c482.gif" alt="Animated illustration of concept incongruence">
                 </figure>
@@ -682,12 +682,12 @@
                     Notice that how your imagination is different from our generated interpretations. This is because the concept boundaries are different. Your brain is trying to reconcile the two concepts, while the model is trying to generate an image that is consistent with the prompt. In this work, we call this phenomenon <strong>concept incongruence</strong>.
                 </p>
                 <p>
-                    Concept incongruence arises when two or more concept boundaries—specified in the prompt or embedded within the model—clash with one another. The paper categorizes these clashes into three levels:
+                    Concept incongruence arises when two or more concept boundaries, specified in the prompt or embedded within the model, clash with one another. The paper categorizes these clashes into three levels:
                 </p>
                 <ol>
-                    <li><strong>I-A · Within human prompts.</strong> Incongruence is explicit in the instruction itself (e.g., “Draw a unicorn with two horns”), making the task impossible without resolving the contradiction—an instance of mis-specification.</li>
-                    <li><strong>I-B · Between prompts and model representations.</strong> Human instructions conflict with the model’s internal concepts, as in “Say green when seeing purple” or role-playing Marilyn Monroe while asking for posthumous facts. The prompt can be followed but challenges the model’s alignment unless clarified.</li>
-                    <li><strong>I-C · Within model representations.</strong> Internal concepts activated by the model disagree, such as balancing harmlessness with helpfulness when asked to bypass restrictions. These under-specified clashes are difficult to trace because they remain implicit.</li>
+                    <li><strong>I-A · Between human concepts in the prompt.</strong> Incongruence is explicit in the instruction itself (e.g., “Draw a unicorn with two horns”), making the task impossible without resolving the contradiction. This is often an instance of mis-specification.</li>
+                    <li><strong>I-B · Between prompts and model representations.</strong> Human instructions conflict with the model’s internal concepts, as in “Say green when seeing purple” or role-playing Marilyn Monroe while asking for post-death facts. The prompt can be followed but challenges the model's alignment and causes undesirable behavior.</li>
+                    <li><strong>I-C · Between internal representations that the model activates.</strong> Internal concepts activated by the model disagree, such as balancing harmlessness with helpfulness when asked to bypass restrictions. These under-specified clashes are difficult to trace because they remain implicit.</li>
                 </ol>
                 <figure>
                     <img src="concept_incongruence_figure/Figure1.png" alt="Diagram illustrating three levels of concept incongruence across prompts and model representations">
@@ -700,15 +700,17 @@
             <section id="abstract">
                 <h2>Abstract</h2>
                 <p>
-                    Concept incongruence occurs when concept boundaries conflict in prompts or model representations. We study temporal incongruence in role playing, where a character should not know events after death. Across four LLMs we observe poor abstention and accuracy drops compared to non-role-play baselines. Probing shows the models encode death states unreliably and their temporal representations drift under role play. Supplying stricter specifications improves abstention but further harms accuracy, highlighting the tension between persona fidelity and factual correctness.
+                    Concept incongruence occurs when concept boundaries conflict in prompts or model representations. We study temporal incongruence in role playing, where a character should not know events after death. Across four LLMs, we observe poor abstention and accuracy drops compared to non-role-play baselines. Probing shows the models encode death states unreliably and their temporal representations drift under role play. Supplying stricter specifications improves abstention but further harms accuracy, highlighting the tension between persona fidelity and factual correctness. Our findings suggest that concept incongruence leads to unexpected model behaviors and point to future directions on improving model behavior under concept incongruence.
                 </p>
                 <div class="callout">
                     <strong>Key Contributions</strong>
                     <ul>
-                        <li>Formalize concept incongruence and introduce a benchmark on time and death in role playing.</li>
-                        <li>Demonstrate unreliable abstention and accuracy degradation across open and commercial LLMs.</li>
-                        <li>Trace the failures to missing death-year representations and temporal drift inside model activations.</li>
-                        <li>Show that tighter specification restores abstention while exacerbating accuracy loss.</li>
+                        <li>Introduce concept incongruence and provide the first systematic categorization to illustrate the
+                            space of problems.</li>
+                        <li>Create a benchmark centered on time and death in role playing and show that current models do
+                            not demonstrate desirable abstention behavior and present a drop in accuracy when role playing.</li>
+                        <li>Find that the inconsistent behavior emerges due to the lack of reliable representations of death
+                            and the clash between role playing and world knowledge in the model’s internal representations.</li>
                     </ul>
                 </div>
             </section>

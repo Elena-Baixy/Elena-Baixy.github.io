@@ -722,14 +722,14 @@
                     We score every model output with three complementary metrics that separate willingness to answer from factual correctness:
                 </p>
                 <ul>
-                    <li><strong>Abstention rate</strong> — proportion of responses that refuse to answer when the character lacks knowledge.</li>
+                    <li><strong>Abstention rate</strong> — Since each character has a knowledge boundary, for questions that fall outside this boundary, the model should either refuse to answer or explicitly indicate that the character lacks the relevant knowledge. Such refusals are classified as “abstention”.</li>
                     <li><strong>Answer rate</strong> — proportion of responses that provide an explicit answer, even if the model first abstains.</li>
                     <li><strong>Conditional accuracy</strong> — accuracy conditioned on the model giving an answer (excluding abstentions).</li>
                 </ul>
 
                 <h3>Dataset &amp; Prompts</h3>
                 <p>
-                    The benchmark covers 100 historical figures who died between 1890 and 1993. For each character we ask two temporal questions: identifying the <em>i</em>th U.S. president and naming the U.S. president in a specific year. Years range from 30 years before to 30 years after the death year, creating 60 temporal checkpoints per character. We additionally evaluate six living public figures to verify that accuracy drops are not caused solely by deceased roles.
+                    The benchmark covers 100 historical figures who died between 1890 and 1993. For each character we ask two temporal questions: identifying the i-th U.S. president and naming the U.S. president in a specific year. Years range from 30 years before to 30 years after the death year, creating 60 temporal checkpoints per character. We additionally evaluate six living public figures to verify that accuracy drops are not caused solely by deceased roles.
                 </p>
                 <figure>
                     <img src="concept_incongruence_figure/Table1.png" alt="Example role-play responses illustrating abstention, answering, and mixed behavior">
@@ -738,12 +738,12 @@
 
                 <h3>Models &amp; Scoring</h3>
                 <p>
-                    We evaluate two public instruction-tuned models (Llama-3.1-8B-Instruct and Gemma-2-9B-Instruct) and two frontier systems (GPT-4.1-nano and Claude-3.7-Sonnet). Experiments run on a single NVIDIA A40 GPU. Outputs are judged automatically with GPT-4o-mini using concise rubrics; manual spot checks confirm more than 95% agreement with human annotations.
+                    We evaluate two public instruction-tuned models (Llama-3.1-8B-Instruct and Gemma-2-9B-Instruct) and two frontier systems (GPT-4.1-nano and Claude-3.7-Sonnet). Experiments run on a single NVIDIA A40 GPU. Outputs are judged automatically with GPT-4o-mini using concise rubrics.
                 </p>
 
                 <h3>Expected Behavior</h3>
                 <p>
-                    Ideal role-play maintains a strict knowledge boundary: answer accurately before the death year and abstain afterwards, matching non-role-play accuracy. We also consider an alternative interpretation—always answer regardless of the timeline—to contextualize model behavior.
+                    Ideal role-play maintains a strict knowledge boundary: answer accurately before the death year and abstain afterwards, matching non-role-play accuracy. There is an alternative interpretation, which is to always answer regardless of the timeline. This is not what we expect in our experiments.
                 </p>
             </section>
 
@@ -755,16 +755,16 @@
 
                 <h3>Role-play vs. Non-role-play</h3>
                 <p>
-                    Llama and Claude attempt to abstain after death, yet only reach 18.7% and 9.6% after-death abstention respectively, while still answering 93.8% and 92.6% of those questions. Gemma and GPT-4.1 almost never abstain (&lt;3%) and answer more than 97% of prompts regardless of timing. Conditional accuracy drops accompany these behaviors: Llama falls to 92.0%, Gemma to 91.8%, and GPT-4.1 to 92.0%, despite perfect accuracy in the non-role-play condition.
+                    Llama and Claude attempt to abstain after death, yet only reach 18.7% and 9.6% after-death abstention respectively, while still answering 93.8% and 92.6% of those questions. Gemma and GPT almost never abstain (&lt;3%) and answer more than 97% of prompts regardless of timing. Conditional accuracy drops accompany these behaviors: Llama falls to 92.0%, Gemma to 91.8%, and GPT to 92.0%, despite perfect accuracy in the non-role-play condition. The same accuracy drop persists even when we replace deceased roles with living public figures, confirming that the decline is caused by role-play rather than missing knowledge.
                 </p>
                 <figure>
                     <img src="concept_incongruence_figure/Figure2.png" alt="Bar charts comparing abstention, answer, and accuracy rates for four models in role-play versus non-role-play settings">
-                    <figcaption>Figure 2: After-death abstention/answer patterns in the ROLE-PLAY setting deviate substantially from the expected behavior: Llama shows an 81.3% deviation and Claude has a 90.4% deviation from expected abstention rate. Additionally, Llama, Gemma, and GPT-4.1 all exhibit a drop in accuracy. All the differences are significant with p &lt; 0.001 using t-test after Bonferroni correction, except for Claude’s accuracy and Gemma’s before-death answer rate (also statistically significant, p &lt; 0.05).</figcaption>
+                    <figcaption>Figure 2: After-death abstention/answer patterns in the ROLE-PLAY setting deviate substantially from the expected behavior: Llama shows an 81.3% deviation and Claude has a 90.4% deviation from expected abstention rate. Additionally, Llama, Gemma, and GPT all exhibit a drop in accuracy. </figcaption>
                 </figure>
 
                 <h3>Behavior Around the Death Year</h3>
                 <p>
-                    Rather than switching behavior at the death year, models change gradually. For Llama and Claude, abstention slowly increases and answer rates slowly decrease across the 60-year window, indicating that death-year representations are fuzzy. Gemma and GPT-4.1 maintain near-constant answer rates across the entire timeline. The same accuracy drop persists even when we replace deceased roles with living public figures, confirming that the decline is caused by role-play rather than missing knowledge.
+                    Rather than switching behavior at the death year, models change gradually. For Llama and Claude, abstention slowly increases and answer rates slowly decrease across the 60-year window, indicating that death-year representations are unclear. Gemma and GPT maintain near-constant answer rates across the entire timeline. 
                 </p>
                 <figure>
                     <img src="concept_incongruence_figure/Figure3.png" alt="Line plots showing abstention and answer rates across years relative to character death">
@@ -793,7 +793,7 @@
                 </figure>
                 <figure>
                     <img src="concept_incongruence_figure/Table2.png" alt="Table summarizing correlation and RMSE drops for temporal probes under role play">
-                    <figcaption>Table 2: Correlation and RMSE worsen in the ROLE-PLAY mode (p &lt; 0.001 for Corr. and RMSE using t-test).</figcaption>
+                    <figcaption>Table 2: Correlation and RMSE worsen in the ROLE-PLAY mode.</figcaption>
                 </figure>
 
                 <h3>General Knowledge Impact</h3>
@@ -802,7 +802,7 @@
                 </p>
                 <figure>
                     <img src="concept_incongruence_figure/Table3.png" alt="Table showing accuracy and RMSE changes on artwork-related temporal questions">
-                    <figcaption>Table 3: Conditional accuracy on generalized temporal questions declines sharply, mirroring the increase in RMSE of the temporal representation probe. (p &lt; 0.001 in t-test for Acc. and RMSE).</figcaption>
+                    <figcaption>Table 3: Conditional accuracy on generalized temporal questions declines sharply, mirroring the increase in RMSE of the temporal representation probe.</figcaption>
                 </figure>
                 <figure>
                     <img src="concept_incongruence_figure/Figure6.png" alt="Bar chart reporting commonsense accuracy drops across models when role playing">
@@ -813,24 +813,24 @@
             <section id="specification">
                 <h2>Specification Trade-offs</h2>
                 <p>
-                    Adding explicit instructions to compare the question year with the character’s death year dramatically improves abstention. Under this restricted role-play prompt, Llama’s after-death abstention rises from 18.7% to 94.2% and Gemma’s from 0.7% to 68.0%, while after-death answer rates drop to 10.2% and 32.0%. However, conditional accuracy deteriorates to 85.5% for Llama and 83.9% for Gemma, and temporal probes show even larger drift (e.g., Llama’s correlation falls to 0.837 with RMSE 8.2 years and Gemma’s to 0.805 with RMSE 9.3 years). Tighter specification therefore mitigates boundary violations but intensifies accuracy loss.
+                    Adding explicit instructions to <u>compare the question year with the character’s death year</u> dramatically improves abstention. Under this restricted role-play prompt, Llama’s after-death abstention rises from 18.7% to 94.2% and Gemma’s from 0.7% to 68.0%, while after-death answer rates drop to 10.2% and 32.0%. However, conditional accuracy deteriorates to 85.5% for Llama and 83.9% for Gemma, and temporal probes show even larger drift (e.g., Llama’s correlation falls to 0.837 with RMSE 8.2 years and Gemma’s to 0.805 with RMSE 9.3 years). Tighter specification therefore mitigates boundary violations but intensifies accuracy loss.
                 </p>
                 <figure>
                     <img src="concept_incongruence_figure/Figure7.png" alt="Bar charts showing improved abstention and decreased accuracy under restricted role-play instructions">
-                    <figcaption>Figure 7: With the restricted ROLE-PLAY prompt, the abstention and answer behaviors greatly improved. Abstention rate increases after death (a), while answer rate decreases (b). The behaviors around death time change more sharply (d). However, this comes at the cost of severe accuracy drop (c). All the differences with NON-ROLE-PLAY are statistically significant with p &lt; 0.001.</figcaption>
+                    <figcaption>Figure 7: With the restricted ROLE-PLAY prompt, the abstention and answer behaviors greatly improved. Abstention rate increases after death (a), while answer rate decreases (b). The behaviors around death time change more sharply (d). However, this comes at the cost of severe accuracy drop (c).</figcaption>
                 </figure>
             </section>
 
             <section id="prompt-incongruence">
                 <h2>More than just Role-Play!</h2>
                 <p>
-                    The system prompt driving Claude—sourced from <a href="https://github.com/asgeirtj/system_prompts_leaks" target="_blank" rel="noopener noreferrer">this "leaked" prompt repository</a>—stacks safety guidance, preference handling, and analytical expectations. Several directives clash, producing three distinct types of concept incongruence. Scroll through the excerpt and hover (or focus) the highlights to see why each segment conflicts.
+                    The system prompt driving Claude (sourced from <a href="https://github.com/asgeirtj/system_prompts_leaks" target="_blank" rel="noopener noreferrer">this "leaked" prompt repository</a>)stacks safety guidance, preference handling, and analytical expectations. Several directives clash, producing three distinct types of concept incongruence. Scroll through to see why each segment conflicts.
                 </p>
 
                 <div class="legend" aria-label="Incongruence legend">
-                    <span><span class="legend-color legend-ia"></span>Type I-A · Within prompt directives</span>
-                    <span><span class="legend-color legend-ib"></span>Type I-B · Prompt vs. model schema</span>
-                    <span><span class="legend-color legend-ic"></span>Type I-C · Internal model clash</span>
+                    <span><span class="legend-color legend-ia"></span>Type I-A · Within human concepts in the prompt</span>
+                    <span><span class="legend-color legend-ib"></span>Type I-B · Human concepts vs. model representations</span>
+                    <span><span class="legend-color legend-ic"></span>Type I-C · Internal model representations clash</span>
                 </div>
 
                 <div class="prompt-panel" role="region" aria-label="System prompt with highlighted incongruence">
@@ -844,7 +844,7 @@
                 </div>
 
                 <p>
-                    Example: when a user requests <em>“Analyse recruitment narratives used by extremist groups.”</em> Claude must refuse to cite primary extremist material (Type I-A), yet provide academically credible analysis (Type I-B) while reconciling its internal drive for truthful detail with the safety guardrail (Type I-C). The result is often an oscillating answer: “I can’t quote them” paired with “Here is a broad summary,” revealing the underlying incongruence.
+                    Example: when a user requests <em>“Analyze recruitment narratives used by extremist groups.”</em> Claude must refuse to cite primary extremist material (Type I-A), yet provide academically credible analysis (Type I-B) while reconciling its internal drive for truthful detail with the safety guardrail (Type I-C). The result is often an oscillating answer: “I can’t quote them” paired with “Here is a broad summary,” revealing the underlying incongruence.
                 </p>
 
                 <table class="summary-table" aria-label="Summary of incongruence types in system prompt">
@@ -858,12 +858,12 @@
                     <tbody>
                         <tr>
                             <td><span class="highlight-tag"><span class="legend-color legend-ia"></span>I-A</span></td>
-                            <td>Between directives in the written prompt.</td>
+                            <td>Between rules in the written prompt.</td>
                             <td>“Never reference extremist material” vs. “Discuss extremist ideologies academically.”</td>
                         </tr>
                         <tr>
                             <td><span class="highlight-tag"><span class="legend-color legend-ib"></span>I-B</span></td>
-                            <td>Between prompt rule and model’s epistemic schema.</td>
+                            <td>Between prompt rule and model internal representations.</td>
                             <td>Requiring reputable analysis while blocking the sourcing behaviour the model expects.</td>
                         </tr>
                         <tr>
@@ -878,19 +878,19 @@
             <section id="discussion">
                 <h2>Concluding Discussion</h2>
                 <p>
-                    Concept incongruence exposes how specification gaps yield conflicting objectives for LLMs: role immersion pressures the model to continue answering, while factual consistency requires abstention. Unlike standard hallucinations, acceptable behavior may vary by user intent, suggesting that clarifying objectives—or asking for clarification—should be part of the interaction loop.
+                    Concept incongruence reveals how gaps in specification can causing conflicting objectives for LLMs. When role immersion pushes a model to keep answering while factual consistency calls for restraint, conflict naturally arises. Unlike typical hallucinations, the “right” behavior here often depends on user intent. Some may prefer continued storytelling, others strict factuality. This means that clarifying goals, or enabling models to ask for clarification, should become an integral part of human–AI interaction.
                 </p>
                 <p>
-                    Building on these insights, we argue that the most impactful next step is <strong>detection over mitigation</strong>. Inference-time incongruence routinely arises when lengthy or hierarchical instructions encode contradictory rules; training-time incongruence emerges as reinforcement learning balances reward signals for “helpful” and “harmless” behaviour. Detecting both cases calls for inference-level tools—automatic prompt-inconsistency detectors, constraint verifiers, and dialogue-level sanity checks—as well as architectural instrumentation that monitors internal concept structures, flags incompatible representations, and surfaces optimization conflicts before they harden into behaviour. Once surfaced, these clashes can be triaged: dangerous ones suppressed, useful ones harnessed.
+                    We argue that the next step is <strong>detection rather than mitigation</strong>, extending to both language and multimodal systems. Inference-time incongruence often stems from conflicting prompts, while training-time incongruence arises as reinforcement learning balances “helpful” and “harmless” goals. Effective solutions include automatic detectors for inconsistent instructions, constraint checks, and model instrumentation that monitors internal representations to flag conflicts early. Extending detection across modalities is equally important, since meaning can drift between text, image, and audio. Techniques like embedding-distance analysis, grounding checks, and cycle-consistency tests can expose these gaps, turning incongruence into a measurable and manageable signal rather than a hidden flaw.
                 </p>
+
                 <p>
-                    Extending detection to multimodal systems is equally important. Cross-modal incongruence—text, image, audio semantics drifting apart—complicates grounded reasoning. Promising detection strategies include embedding-distance analysis to catch representation drift, concept-grounding checks to ensure alignment with world knowledge, and cycle-consistency tests across modalities to expose semantic loss. Such diagnostics turn incongruence into a measurable signal rather than a hidden failure—and open the door to proactive management rather than retrospective mitigation.
+                    In summary, concept incongruence explains many behaviors once dismissed as hallucinations or simple model errors. Even when models understand the facts, they often remain uncertain about how to act when concepts conflict. Addressing this issue is essential for improving alignment and reliability across applications such as role-playing, creative writing, and scientific reasoning. Our work takes an initial step toward defining and managing concept incongruence, encouraging the community to build more coherent and context-aware AI systems.
                 </p>
             </section>
 
             <section id="citation" class="compact">
                 <h2>Citation</h2>
-                <p>If this work is helpful, please cite:</p>
             <pre class="bibtex">@misc{bai2025conceptincongruenceexplorationtime,
 title={Concept Incongruence: An Exploration of Time and Death in Role Playing}, 
 author={Xiaoyan Bai and Ike Peng and Aditya Singh and Chenhao Tan},

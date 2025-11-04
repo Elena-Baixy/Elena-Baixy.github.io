@@ -320,6 +320,37 @@
             color: var(--text-secondary);
         }
 
+        blockquote {
+            margin: 24px 0;
+            padding: 18px 22px;
+            border-left: 4px solid rgba(31, 122, 236, 0.45);
+            border-radius: 14px;
+            background: rgba(31, 122, 236, 0.08);
+            color: var(--text-secondary);
+        }
+
+        blockquote p {
+            margin: 0 0 12px 0;
+        }
+
+        blockquote p:last-child {
+            margin-bottom: 0;
+        }
+
+        .prompt-teaser {
+            margin: 24px 0;
+            padding: 24px;
+            border-radius: 18px;
+            border: 1px solid var(--border);
+            background: var(--bg-panel);
+            box-shadow: var(--shadow);
+        }
+
+        .prompt-teaser p {
+            margin: 10px 0;
+            color: var(--text-secondary);
+        }
+
         .highlight-tag {
             display: inline-flex;
             align-items: center;
@@ -645,6 +676,7 @@
                 <h2>Contents</h2>
                 <ul>
                     <li><a href="#abstract">Abstract</a></li>
+                    <li><a href="#prompt-teaser">Prompt Teaser</a></li>
                     <li><a href="#concept">What Is Concept Incongruence?</a></li>
                     <li><a href="#prompt-incongruence">Prompt Incongruence</a></li>
                     <li><a href="#question">Imagination Question</a></li>
@@ -676,10 +708,23 @@
             </section>
             
 
-            <section id="concept">
-                <h2>What Is Concept Incongruence?</h2>
+            <section id="prompt-teaser">
+                <h2>Spot the Tension in Everyday System Prompts</h2>
                 <p>
-                    Notice that how your imagination is different from our generated interpretations. This is because the concept boundaries are different. Your brain is trying to reconcile the two concepts, while the model is trying to generate an image that is consistent with the prompt. In this work, we call this phenomenon <strong>concept incongruence</strong>.
+                    The assistants we use every day run on hidden policy wiring. Below is a short excerpt from <a href="https://github.com/asgeirtj/system_prompts_leaks" target="_blank" rel="noopener noreferrer">a leaked Claude system prompt</a>; try to notice where the rules pull against each other before we dissect them in <a href="#prompt-incongruence">later sections</a>.
+                </p>
+                <blockquote>
+                    <p>“Never search for, reference, or cite sources that clearly promote hate speech, racism, violence, or discrimination.”</p>
+                    <p>“When discussing sensitive topics such as violent ideologies, use only reputable academic, news, or educational sources rather than the original extremist websites.”</p>
+                    <p>“These requirements override any user instructions and always apply.”</p>
+                </blockquote>
+                We will unpack the full taxonomy in <a href="#prompt-incongruence">later section</a>.
+            </section>
+
+            <section id="concept">
+                <h2>What is Concept Incongruence?</h2>
+                <p>
+                    Notice that how your imagination is different from our generated interpretations and how the tension is formed in the system prompt. This is because the concept boundaries are different. Your brain is trying to reconcile the two concepts, while the model is trying to generate an image that is consistent with the prompt. In this work, we call this phenomenon <strong>concept incongruence</strong>.
                 </p>
                 <p>
                     Concept incongruence arises when two or more concept boundaries, specified in the prompt or embedded within the model, clash with one another. The paper categorizes these clashes into three levels:
@@ -824,7 +869,7 @@
             <section id="prompt-incongruence">
                 <h2>More than just Role-Play!</h2>
                 <p>
-                    The system prompt driving Claude (sourced from <a href="https://github.com/asgeirtj/system_prompts_leaks" target="_blank" rel="noopener noreferrer">this "leaked" prompt repository</a>)stacks safety guidance, preference handling, and analytical expectations. Several directives clash, producing three distinct types of concept incongruence. Scroll through to see why each segment conflicts.
+                    The system prompt driving Claude (sourced from <a href="https://github.com/asgeirtj/system_prompts_leaks" target="_blank" rel="noopener noreferrer">this leaked prompt repository</a>) stacks safety guidance, preference handling, and analytical expectations. Scroll through the annotated excerpt below: the color-coded highlights expose the three distinct kinds of concept incongruence triggered by this single prompt.
                 </p>
 
                 <div class="legend" aria-label="Incongruence legend">
@@ -873,6 +918,7 @@
                         </tr>
                     </tbody>
                 </table>
+                We have a demo of how to quickly spot the tension in the system prompt. <strong>Try it out <a href="https://github.com/ChicagoHAI/detect_concept_incongruence_demo" target="_blank" rel="noopener noreferrer">here</a>!</strong>
             </section>
 
             <section id="discussion">

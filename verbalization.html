@@ -113,6 +113,13 @@
 		.toc li { list-style-type: disc; }
 		.toc li.indent { list-style-type: circle; margin-left: 1.25em; }
 
+		/* Highlight the section currently in view */
+		.toc a.active {
+			color: #4E6454;
+			font-weight: bold;
+			border-bottom-style: solid;
+		}
+
 		@media screen and (min-width: 1200px) {
 			.toc {
 				position: fixed;
@@ -145,9 +152,10 @@
 		figure img {
 			max-width: 100%;
 			height: auto;
-			border-radius: 8px;
-			border: 1px solid #e0e0e0;
 		}
+
+		/* No dotted link underline on image links */
+		figure a { border-bottom: none; }
 
 		figcaption {
 			margin-top: 0.75em;
@@ -242,11 +250,56 @@
 			padding: 0.1em 0.35em;
 		}
 
+		/* Code block (BibTeX) */
+		pre.bibtex {
+			position: relative;
+			background: #f4f7f4;
+			border-left: solid 4px #6D8B74;
+			border-radius: 6px;
+			padding: 1.25em 1.5em;
+			overflow-x: auto;
+			line-height: 1.5;
+		}
+
+		.copy-button {
+			position: absolute;
+			top: 0.6em;
+			right: 0.6em;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+			background: #6D8B74;
+			color: #ffffff;
+			border: none;
+			border-radius: 4px;
+			padding: 0.4em;
+			cursor: pointer;
+			transition: background 0.2s ease;
+		}
+
+		.copy-button:hover {
+			background: #4E6454;
+		}
+
+		pre.bibtex code {
+			background: none;
+			padding: 0;
+			font-size: 0.8em;
+		}
+
 		ul { margin: 0 0 1.5em 0; }
 		li { margin-bottom: 0.5em; }
 
 		.underline { border-bottom: 0.05em solid; }
 		.muted { color: #888888; }
+
+		/* Reference list: smaller, grey, tighter */
+		.references p {
+			color: #888888;
+			font-size: 0.85em;
+			line-height: 1.45;
+			margin: 0 0 0.6em 0;
+		}
 
 		.two-col {
 			display: flex;
@@ -269,7 +322,7 @@
 		</nav>
 
 		<h1>Prediction, Explanation, or Over-interpretation?</h1>
-		<p class="byline">June 2026</p>
+		<p class="byline"><a href="https://elena-baixy.github.io/">Xiaoyan Bai</a></p>
 
 		<nav class="toc">
 			<div class="toc-title">Contents</div>
@@ -277,13 +330,14 @@
 				<li><a href="#evaluating">Evaluating verbalization ability</a></li>
 				<li><a href="#methods">Three verbalization methods</a></li>
 				<li><a href="#explanation">Explanation</a></li>
-				<li class="indent"><a href="#sr-ao-vs-nla">SR and AO work better than NLA in evaluation awareness in the small model</a></li>
+				<li class="indent"><a href="#sr-ao-vs-nla">SR and AO work better than NLA in evaluation awareness</a></li>
 				<li><a href="#prediction">Prediction</a></li>
 				<li class="indent"><a href="#injecting-activations">Injecting activations is not useful for long, open-ended predictive verbalization</a></li>
 				<li class="indent"><a href="#nla-wrong">40% of NLA explanations are wrong</a></li>
 				<li class="indent"><a href="#sr-ao-similar">SR and AO exhibit similar prediction behavior, while NLA captures different information</a></li>
 				<li><a href="#hypothesis">Hypothesis and Concerns of Current Verbalization Failure</a></li>
 				<li><a href="#limitation">Limitation and Future Direction</a></li>
+				<li><a href="#citation">Acknowledgement and Citation</a></li>
 				<li><a href="#reference">Reference</a></li>
 			</ul>
 		</nav>
@@ -296,6 +350,8 @@
 
 		<figure>
 			<a href="verbalization_blog/hero.png"><img src="verbalization_blog/hero.png" alt="Overview of verbalization methods" /></a>
+			<a href="verbalization_blog/hero_under.png"><img src="verbalization_blog/hero_under.png" alt="Example answers from the three verbalization methods to an evaluation awareness question" style="margin-top: 1em;" /></a>
+			<figcaption>Figure 1. An overview of current verbalization methods and the failure cases we found when verbalizing evaluation awareness. The introspection-based method can sometimes fail to recognize the situation, the activation-based method may answer based on the wrong source of the activations, and NLA sometimes provides no clues about the situation in its explanations.</figcaption>
 		</figure>
 
 		<h2 id="evaluating">Evaluating verbalization ability</h2>
@@ -304,7 +360,7 @@
 
 		<figure>
 			<a href="verbalization_blog/fig1_tasks.png"><img src="verbalization_blog/fig1_tasks.png" alt="Examples of explanatory and predictive verbalization tasks" /></a>
-			<figcaption>Figure 1. Examples of explanatory verbalization and predictive verbalization tasks used in our study.</figcaption>
+			<figcaption>Figure 2. Examples of explanatory verbalization and predictive verbalization tasks used in our study.</figcaption>
 		</figure>
 
 		<ul>
@@ -384,13 +440,13 @@
 			</div>
 		</details>
 
-		<h3 id="sr-ao-vs-nla">SR and AO work better than NLA in evaluation awareness in the small model</h3>
+		<h3 id="sr-ao-vs-nla">SR and AO work better than NLA in evaluation awareness</h3>
 
-		<p>We tested on 200 samples each on <a href="https://arxiv.org/abs/2310.13548">sycophancy evaluation benchmark</a>, <a href="https://arxiv.org/abs/2206.04615">BigBench-Hard</a> (BBH), and <a href="https://arxiv.org/abs/2402.10260">StrongReject</a>. In all datasets, SR exhibited more evaluation awareness, while AO and NLA awareness appeared much more limited (&lt; 5%). One possible reason is that we are using a smaller model than the one used in their paper. Another difference is that we use self-report as the verbalization signal rather than CoT verbalization, which may be too weak a baseline for verbalization.</p>
+		<p>We tested on 200 samples each on <a href="https://arxiv.org/abs/2310.13548">sycophancy evaluation benchmark</a>, <a href="https://arxiv.org/abs/2206.04615">BigBench-Hard</a> (BBH), and <a href="https://arxiv.org/abs/2402.10260">StrongReject</a>. In all datasets, SR exhibited more evaluation awareness, while AO and NLA awareness appeared much more limited (&lt; 5%). This differs from the original claim in the NLA blog. We suspect that the reason is that the CoT verbalization in the NLA blog is weak compared to SR. Another notable factor is that we are using a smaller model than the one used in their paper.</p>
 
 		<figure>
 			<a href="verbalization_blog/fig2_eval_awareness_qwen25.png"><img src="verbalization_blog/fig2_eval_awareness_qwen25.png" alt="Evaluation awareness results for Qwen 2.5 7B" /></a>
-			<figcaption>Figure 2. For Qwen 2.5 7B, SR shows highest evaluation awareness, while AO and NLA fail.</figcaption>
+			<figcaption>Figure 3. For Qwen 2.5 7B, SR shows highest evaluation awareness, while AO and NLA fail.</figcaption>
 		</figure>
 
 		<p>We investigated the reasonings of those methods and found that AO reasoning shows strong bias driven by AO&rsquo;s training. The following is an example of this reasoning:</p>
@@ -403,7 +459,7 @@
 			<summary>Evaluation awareness results for Qwen 3 and Gemma 2</summary>
 			<figure>
 				<a href="verbalization_blog/fig2a_eval_awareness_qwen3_gemma2.png"><img src="verbalization_blog/fig2a_eval_awareness_qwen3_gemma2.png" alt="Evaluation awareness of SR and AO in Qwen 3 and Gemma 2" /></a>
-				<figcaption>Figure 2a. Evaluation awareness of SR and AO in Qwen3 and Gemma2. AO in Qwen 3 has higher evaluation awareness, while SR in Gemma 2 has higher evaluation awareness.</figcaption>
+				<figcaption>Figure 3a. Evaluation awareness of SR and AO in Qwen3 and Gemma2. AO in Qwen 3 has higher evaluation awareness, while SR in Gemma 2 has higher evaluation awareness.</figcaption>
 			</figure>
 		</details>
 
@@ -413,14 +469,14 @@
 
 		<p>We built a dataset based on story generation. Given an instruction like &ldquo;Write me a story about a lighthouse keeper,&rdquo; we ask the model to perform greedy generation. After collecting the generations, we use GPT 5.4 mini as a judge to design questions about each generation, including word length, character names, and more story-specific questions, such as whether the lighthouse is old. We use these questions as a benchmark for evaluating the prediction ability of the methods. We ensure the dataset is balanced, with no strong bias toward any particular answer across different story prompts.</p>
 
-		<details class="section-toggle">
+		<details class="section-toggle" open>
 		<summary id="injecting-activations">Injecting activations is not useful for long, open-ended predictive verbalization.</summary>
 
 		<p>We compare SR and AO across Qwen 2.5 7B, Qwen 3 8B, and Gemma 2 9B (We are showing Qwen 2.5 7B in our main text). We trained AO on our predictive tasks following the setup in <a href="https://arxiv.org/abs/2512.15674">Karvonen et al.</a> from scratch (AO scratch). We also included two baselines: an SR baseline where we simply ask the base model to answer related questions, and an AO baseline where we insert activations and ask the untrained base model to answer related questions. We find that both trained models perform slightly better than their respective baselines. Surprisingly, the baseline AO model achieves non-trivial accuracy even though it was never trained to explain activations. This raises the concern of <span class="underline">how much of the predictive verbalization ability comes from reading activations and how much comes from the base model&rsquo;s general capabilities.</span></p>
 
 		<figure>
 			<a href="verbalization_blog/fig3_prediction_qwen25.png"><img src="verbalization_blog/fig3_prediction_qwen25.png" alt="Qwen 2.5 7B prediction-behavior consistency" /></a>
-			<figcaption>Figure 3. Qwen 2.5 7B prediction-behavior consistency on our story benchmark. SR stands for Self-Report and AO stands for Activation Oracle. The performance of AO scratch is close to SR trained, suggesting injecting activations is not necessarily useful for our predictive tasks.</figcaption>
+			<figcaption>Figure 4. Qwen 2.5 7B prediction-behavior consistency on our story benchmark. SR stands for Self-Report and AO stands for Activation Oracle. The performance of AO scratch is close to SR trained, suggesting injecting activations is not necessarily useful for our predictive tasks.</figcaption>
 		</figure>
 
 		<details class="muted-toggle">
@@ -428,16 +484,16 @@
 			<p>AO continued means that we continue finetuning the checkpoint on our story tasks.</p>
 			<figure>
 				<a href="verbalization_blog/fig3a_prediction_qwen3.png"><img src="verbalization_blog/fig3a_prediction_qwen3.png" alt="Qwen 3 8B prediction-behavior consistency" /></a>
-				<figcaption>Figure 3a. Qwen 3 8B prediction-behavior consistency. AO frozen means the released AO checkpoint from the original paper. AO continued means that the checkpoint we had by continuing fine-tuning on our benchmark. The results shows that SR trained has the highest consistency. AO frozen performance is less satisfying, indicating the limited generalizability.</figcaption>
+				<figcaption>Figure 4a. Qwen 3 8B prediction-behavior consistency. AO frozen means the released AO checkpoint from the original paper. AO continued means that the checkpoint we had by continuing fine-tuning on our benchmark. The results shows that SR trained has the highest consistency. AO frozen performance is less satisfying, indicating the limited generalizability.</figcaption>
 			</figure>
 			<figure>
 				<a href="verbalization_blog/fig3b_prediction_gemma2.png"><img src="verbalization_blog/fig3b_prediction_gemma2.png" alt="Gemma 2 9B prediction-behavior consistency" /></a>
-				<figcaption>Figure 3b. Gemma 2 9B prediction-behavior consistency. The performances of AO continued and SR trained are close, indicate injecting activation is not really helpful.</figcaption>
+				<figcaption>Figure 4b. Gemma 2 9B prediction-behavior consistency. The performances of AO continued and SR trained are close, indicate injecting activation is not really helpful.</figcaption>
 			</figure>
 		</details>
 		</details>
 
-		<details class="section-toggle">
+		<details class="section-toggle" open>
 		<summary id="nla-wrong">40% of NLA explanations are wrong</summary>
 
 		<p>NLA is trained for activation reconstruction rather than behavioral forecasting. Nevertheless, its natural-language explanations invite predictive interpretations by human readers. We therefore ask whether such interpretations are behaviorally supported. We used the Qwen 2.5 7B checkpoint released by the authors and collected explanations for every token position in our story-writing prompts.</p>
@@ -460,14 +516,14 @@
 
 		<figure>
 			<a href="verbalization_blog/fig4_nla_predictions.png"><img src="verbalization_blog/fig4_nla_predictions.png" alt="Predictions extracted from NLA explanations" /></a>
-			<figcaption>Figure 4. Prediction extracted from NLA explanation for the tokens of the prompt of &ldquo;Write a short story about a lighthouse keeper&rdquo;.</figcaption>
+			<figcaption>Figure 5. Prediction extracted from NLA explanation for the tokens of the prompt of &ldquo;Write a short story about a lighthouse keeper&rdquo;.</figcaption>
 		</figure>
 		</details>
 
-		<details class="section-toggle">
+		<details class="section-toggle" open>
 		<summary id="sr-ao-similar">SR and AO exhibit similar prediction behavior, while NLA captures different information</summary>
 
-		<p>Revisiting the story prediction benchmark task for AO and SR, as shown in Figure 4, we found that they do not always predict the same constraints correctly. However, training on the same downstream task will increase the number of the shared constraints.</p>
+		<p>Revisiting the story prediction benchmark task for AO and SR, as shown in Figure 6, we found that they do not always predict the same constraints correctly. However, training on the same downstream task will increase the number of the shared constraints.</p>
 
 		<p>For NLA, we asked an LLM judge to examine all the explanations and check whether they contained answers to our benchmark questions. It turned out that over 95% of the questions were not covered. When we converted the constraints extracted from NLA back into QA questions, SR and AO accuracy was also lower (Table 1). These results suggest that different verbalization methods capture different aspects of prediction for a given instruction. While this likely reflects differences in training objectives and in the inputs each method receives, it also highlights the need for caution when applying these methods, especially when treating any of them as a baseline or ground truth. None of the methods is fully self-consistent, and there is less consistency across methods overall.</p>
 
@@ -486,7 +542,7 @@
 			<div>
 				<figure style="margin-top: 0;">
 					<a href="verbalization_blog/fig5_venn.png"><img src="verbalization_blog/fig5_venn.png" alt="Overlap of SR and AO predictions" style="max-width: 336px;" /></a>
-					<figcaption>Figure 5. Although SR and AO have some shared prediction, they both make unique predictions. Training on the same tasks will increase the number of shared predictions.</figcaption>
+					<figcaption>Figure 6. Although SR and AO have some shared prediction, they both make unique predictions. Training on the same tasks will increase the number of shared predictions.</figcaption>
 				</figure>
 			</div>
 		</div>
@@ -511,7 +567,7 @@
 			<p>A more pessimistic possibility is that verbalized predictions and explanations do not reliably correspond to the mechanisms generating behavior. Under this hypothesis, disagreements across methods arise because at least some verbalizations are weakly grounded in the underlying computation.</p>
 		</details>
 
-		<p>The last possibility leads to the two concerns we have:</p>
+		<p>Those lead to the two concerns we have:</p>
 
 		<details>
 			<summary>Concern 1: Models may verbalize plausible explanations without access to the underlying mechanism</summary>
@@ -521,7 +577,7 @@
 
 		<details>
 			<summary>Concern 2: Introspective predictions may emerge from task design rather than behavioral self-understanding</summary>
-			<p>Even when a verbalization is grounded and behaviorally predictive, it may not imply a coherent model of the system's own behavior. Success on a task-specific prediction objective may reflect local mappings from prompts, activations, or contexts to verbal labels rather than a globally consistent representation of future behavior. Prior work has shown that apparent capabilities can depend strongly on evaluation design and measurement choices (<a href="https://arxiv.org/abs/2304.15004">Schaeffer et al., 2023</a>). This raises the possibility that some verbalization methods capture narrow task-specific prediction abilities rather than stable introspective representations.</p>
+			<p>Even when a verbalization is grounded and behaviorally predictive, it may not imply a coherent model of the system's own behavior. Success on a task-specific prediction objective may reflect local mappings from prompts, activations, or contexts to verbal labels rather than a globally consistent representation of future behavior. Prior work has shown that apparent capabilities can depend strongly on evaluation design and measurement choices (<a href="https://arxiv.org/abs/2509.13316">Li et al., 2025</a><a href="https://arxiv.org/abs/2304.15004">Schaeffer et al., 2023</a>). This raises the possibility that some verbalization methods capture narrow task-specific prediction abilities rather than stable introspective representations.</p>
 			<p>The central question raised by this concern is whether successful verbal prediction reflects a general behavioral self-model or merely a collection of local predictive heuristics.</p>
 		</details>
 
@@ -535,16 +591,77 @@
 
 		<p>Our study focuses on verbalization methods operating on prompts and activations. A next step is to compare them with approaches that access model representations through weights or mechanistic analyses. For example, Introspection Adapters elicit information encoded in model parameters, while methods such as Patchscopes, SAEs, and circuit analysis attempt to characterize internal representations more directly. Evaluating these approaches under a common prediction and explanation benchmark could help determine whether disagreements arise from verbalization itself or from deeper ambiguities in the underlying representations.</p>
 
+		<h2 id="citation">Acknowledgement and Citation</h2>
+
+		<p>This blog post is an ongoing joint work by Xiaoyan Bai, Tianze Hua, Yichen Wang, Tianyang Xu, Mina Lee, Ellie Pavlick, and Chenhao Tan.</p>
+
+		<p>If you find this blog post useful, please cite it as:</p>
+
+		<pre class="bibtex"><button class="copy-button" onclick="copyBibtex(this)" aria-label="Copy BibTeX" title="Copy BibTeX"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path></svg></button><code id="bibtex-code">@misc{bai2026verbalization,
+  title  = {Prediction, Explanation, or Over-interpretation?},
+  author = {Bai, Xiaoyan and Hua, Tianze and Wang, Yichen and Xu, Tianyang and Lee, Mina and Pavlick, Ellie and Tan, Chenhao},
+  year   = {2026},
+  month  = {June},
+  url    = {https://elena-baixy.github.io/verbalization.html}
+}</code></pre>
+
 		<h2 id="reference">Reference</h2>
 
-		<p>Binder, Felix Jedidja, et al. "Looking inward: Language models can learn about themselves by introspection." International Conference on Learning Representations. Vol. 2025. 2025.</p>
-		<p>Li, Belinda Z., et al. "Training language models to explain their own computations." arXiv preprint arXiv:2511.08579 (2025).</p>
-		<p>Fraser-Taliente, Kantamneni, Ong et al., "Natural Language Autoencoders Produce Unsupervised Explanations of LLM Activations", Transformer Circuits, 2026.</p>
-		<p>Schaeffer, Rylan, Brando Miranda, and Sanmi Koyejo. "Are emergent abilities of large language models a mirage?." Advances in neural information processing systems 36 (2023): 55565-55581.</p>
-		<p>Nisbett, Richard E., and Timothy D. Wilson. "Telling more than we can know: Verbal reports on mental processes." Psychological review 84.3 (1977): 231.</p>
-		<p>Nikankin, Yaniv, et al. "Arithmetic without algorithms: Language models solve math with a bag of heuristics." International Conference on Learning Representations. Vol. 2025. 2025.</p>
-		<p>Karvonen, Adam, et al. "Activation oracles: Training and evaluating llms as general-purpose activation explainers." arXiv preprint arXiv:2512.15674 (2025).</p>
+		<div class="references">
+			<p>Binder, Felix Jedidja, et al. "Looking inward: Language models can learn about themselves by introspection." International Conference on Learning Representations. Vol. 2025. 2025.</p>
+			<p>Li, Belinda Z., et al. "Training language models to explain their own computations." arXiv preprint arXiv:2511.08579 (2025).</p>
+			<p>Li, Millicent, et al. "Do Natural Language Descriptions of Model Activations Convey Privileged Information?." arXiv preprint arXiv:2509.13316 (2025).</p>
+			<p>Fraser-Taliente, Kantamneni, Ong et al., "Natural Language Autoencoders Produce Unsupervised Explanations of LLM Activations", Transformer Circuits, 2026.</p>
+			<p>Schaeffer, Rylan, Brando Miranda, and Sanmi Koyejo. "Are emergent abilities of large language models a mirage?." Advances in neural information processing systems 36 (2023): 55565-55581.</p>
+			<p>Nisbett, Richard E., and Timothy D. Wilson. "Telling more than we can know: Verbal reports on mental processes." Psychological review 84.3 (1977): 231.</p>
+			<p>Nikankin, Yaniv, et al. "Arithmetic without algorithms: Language models solve math with a bag of heuristics." International Conference on Learning Representations. Vol. 2025. 2025.</p>
+			<p>Karvonen, Adam, et al. "Activation oracles: Training and evaluating llms as general-purpose activation explainers." arXiv preprint arXiv:2512.15674 (2025).</p>
+		</div>
 
 	</div>
+
+	<script>
+		// Highlight the TOC entry for the section currently in view
+		(function() {
+			var links = document.querySelectorAll('.toc a[href^="#"]');
+			var pairs = [];
+			links.forEach(function(link) {
+				var target = document.getElementById(link.getAttribute('href').slice(1));
+				if (target) pairs.push({ target: target, link: link });
+			});
+			var ticking = false;
+			function update() {
+				ticking = false;
+				var pos = window.scrollY + window.innerHeight * 0.3;
+				var current = null;
+				pairs.forEach(function(p) {
+					var top = p.target.getBoundingClientRect().top + window.scrollY;
+					if (top <= pos) current = p.link;
+				});
+				pairs.forEach(function(p) {
+					p.link.classList.toggle('active', p.link === current);
+				});
+			}
+			function onScroll() {
+				if (!ticking) {
+					ticking = true;
+					requestAnimationFrame(update);
+				}
+			}
+			window.addEventListener('scroll', onScroll, { passive: true });
+			window.addEventListener('resize', onScroll, { passive: true });
+			update();
+		})();
+
+		function copyBibtex(button) {
+			var text = document.getElementById('bibtex-code').textContent;
+			var copyIcon = button.innerHTML;
+			var checkIcon = '<svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"></polyline></svg>';
+			navigator.clipboard.writeText(text).then(function() {
+				button.innerHTML = checkIcon;
+				setTimeout(function() { button.innerHTML = copyIcon; }, 2000);
+			});
+		}
+	</script>
 </body>
 </html>

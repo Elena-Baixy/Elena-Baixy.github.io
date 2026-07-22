@@ -66,6 +66,57 @@
 				border: 2px solid rgba(255,255,255,0.2);
 			}
 
+			.interest-link {
+				position: relative;
+				display: inline-block;
+			}
+
+			.interest-link::before,
+			.interest-link::after {
+				position: absolute;
+				left: 50%;
+				z-index: 20;
+				opacity: 0;
+				pointer-events: none;
+				transform: translate(-50%, 0.35em);
+				transition: opacity 0.18s ease, transform 0.18s ease;
+			}
+
+			.interest-link::after {
+				content: attr(data-tooltip);
+				bottom: calc(100% + 0.7em);
+				width: max-content;
+				max-width: 13em;
+				padding: 0.55em 0.8em;
+				border-radius: 0.35em;
+				color: #ffffff;
+				background: rgba(109, 139, 116, 0.72);
+				backdrop-filter: blur(6px);
+				-webkit-backdrop-filter: blur(6px);
+				box-shadow: 0 0.4em 1.2em rgba(60, 82, 65, 0.22);
+				font-size: 0.72em;
+				font-weight: bold;
+				letter-spacing: 0.02em;
+				line-height: 1.35;
+				text-align: center;
+			}
+
+			.interest-link::before {
+				content: '';
+				bottom: calc(100% + 0.35em);
+				border-top: 0.4em solid rgba(109, 139, 116, 0.72);
+				border-right: 0.4em solid transparent;
+				border-left: 0.4em solid transparent;
+			}
+
+			.interest-link:hover::before,
+			.interest-link:hover::after,
+			.interest-link:focus-visible::before,
+			.interest-link:focus-visible::after {
+				opacity: 1;
+				transform: translate(-50%, 0);
+			}
+
 			.publication-content p span a:not([href*="arxiv"]):not([href*="TheStoryisNottheScience.pdf"]) {
 				font-weight: bold;
 				letter-spacing: 0.25em;
@@ -192,7 +243,7 @@
 							<div class="profile-layout">
 								<div class="profile-content">
 									<p>
-										I am currently a second-year PhD student in CS at
+										I am currently a PhD student in CS at
 										<a href="https://cs.uchicago.edu/">
 										University of Chicago
 										</a>
@@ -202,7 +253,7 @@
 									</p>
 									
 									<p>
-										Before that, I earned B.E in Computer Science at CSE at Univeristy of Michigan, Ann Arbor. During my undergrad study, I was honored to be a member of <a href="https://lit.eecs.umich.edu/">Language and Information Technologies (LIT) lab group </a> to work with <a href="https://web.eecs.umich.edu/~mihalcea/">Rada Mihalcea</a>. I also worked on NLP inference time efficiency in <a href="https://web.eecs.umich.edu/~aprakash/">Atul Prakash</a>'s group. I am interested in doing research in Natural Language Processing. At the same time, I like photography and Game Design & Development. <a href="games.html"> Check the games I made! </a>
+										Before that, I earned B.E in Computer Science at CSE at Univeristy of Michigan, Ann Arbor. During my undergrad study, I was honored to be a member of <a href="https://lit.eecs.umich.edu/">Language and Information Technologies (LIT) lab group </a> to work with <a href="https://web.eecs.umich.edu/~mihalcea/">Rada Mihalcea</a>. I also worked on NLP inference time efficiency in <a href="https://web.eecs.umich.edu/~aprakash/">Atul Prakash</a>'s group. I am interested in doing research in Natural Language Processing. At the same time, I like <a href="photos.html" class="interest-link" data-tooltip="Check out the photos ">photography</a> and <a href="games.html" class="interest-link" data-tooltip="Check out the games"> game development</a>.
 									</p>
 									
 									<p>
@@ -233,7 +284,7 @@
 								<div class="publication-content">
 									<p>
 										<span><a href="https://arxiv.org/abs/2602.18458">The Story is Not the Science:
-											Execution-Grounded Evaluation of Mechanistic Interpretability Research</a> (ICML2026 AI4Science workshop) <br />
+											Execution-Grounded Evaluation of Mechanistic Interpretability Research</a> (ICML2026 AI4Science workshop <b>Best Poster Award</b>) <br />
 										<b>Xiaoyan Bai</b>, Alexander Baumgartner*, Haojia Sun*, Ari Holtzman, Chenhao Tan<br />
 										<a href="https://github.com/ChicagoHAI/MechEvalAgent">Code</a> |
 										<a href="https://tinyurl.com/MechEvalAgents">Blog</a>
@@ -402,6 +453,10 @@
 					<section id="two" class="wrapper style3 fade-up">
 						<div class="inner">
 							<h2>Services</h2>
+								<li>Organizer for NeurIPS 2026 <a href="https://interpretability4discovery.github.io/">Interpretability for Discovery workshop</a></li>
+								<li>Reviewer for TMLR</li>
+								<li>Reviewer for COML 2026</li>
+								<li>Reviewer for ICML 2026 (<b>Gold Reviewer</b>)</li>
 							    <li>Reviewer for ICLR 2026</li>
 								<li>Reviewer for NeurIPS 2025</li>
 								<li>Reviewer for ICLR (SCOPE and DeLTa workshop) 2025</li>

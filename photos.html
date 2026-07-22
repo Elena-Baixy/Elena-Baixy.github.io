@@ -1,0 +1,287 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Photography portfolio by Xiaoyan Bai.">
+  <title>Photography — Xiaoyan Bai</title>
+  <style>
+    :root {
+      --ink: #222;
+      --muted: #777;
+      --brand-green: #6D8B74;
+      --paper: #fff;
+      --gutter: clamp(24px, 3.5vw, 50px);
+      --gap: clamp(28px, 4.1vw, 58px);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; }
+
+    html { background: var(--paper); }
+
+    body {
+      margin: 0;
+      color: var(--ink);
+      background: var(--paper);
+      font-family: "Courier New", Courier, monospace;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    body.lightbox-open { overflow: hidden; }
+    button, a { font: inherit; }
+
+    .site-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 32px;
+      padding: 38px var(--gutter) 62px;
+    }
+
+    .site-title {
+      margin: 0;
+      color: var(--brand-green);
+      font-size: clamp(2rem, 3.55vw, 3.2rem);
+      font-weight: 400;
+      letter-spacing: 0.025em;
+      line-height: 1;
+      text-transform: uppercase;
+    }
+
+    .site-nav {
+      display: flex;
+      align-items: center;
+      gap: clamp(24px, 3.6vw, 52px);
+      color: var(--muted);
+      font-size: 1rem;
+    }
+
+    .site-nav a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    .site-nav a[aria-current="page"],
+    .site-nav a:hover { color: var(--brand-green); }
+
+    .gallery {
+      column-count: 2;
+      column-gap: var(--gap);
+      padding: 0 var(--gutter);
+    }
+
+    .photo {
+      display: inline-block;
+      width: 100%;
+      margin: 0 0 var(--gap);
+      padding: 0;
+      border: 0;
+      background: transparent;
+      cursor: zoom-in;
+      line-height: 0;
+      break-inside: avoid;
+      appearance: none;
+    }
+
+    .photo img {
+      display: block;
+      width: 100%;
+      height: auto;
+      border: 0;
+    }
+
+    .photo:focus-visible {
+      outline: 2px solid var(--ink);
+      outline-offset: 8px;
+    }
+
+    .site-footer {
+      display: flex;
+      justify-content: space-between;
+      gap: 24px;
+      padding: 20px var(--gutter) 42px;
+      color: #999;
+      font-family: Arial, Helvetica, sans-serif;
+      font-size: 0.72rem;
+    }
+
+    .lightbox {
+      position: fixed;
+      inset: 0;
+      z-index: 1000;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: clamp(16px, 4vw, 54px);
+      background: rgba(255, 255, 255, 0.96);
+      opacity: 0;
+      visibility: hidden;
+      transition: opacity 180ms ease, visibility 180ms ease;
+    }
+
+    .lightbox.is-open { opacity: 1; visibility: visible; }
+
+    .lightbox-image {
+      display: block;
+      width: auto;
+      max-width: 100%;
+      height: auto;
+      max-height: calc(100vh - clamp(32px, 8vw, 108px));
+      object-fit: contain;
+      box-shadow: 0 18px 55px rgba(0, 0, 0, 0.12);
+      transform: scale(0.985);
+      transition: transform 180ms ease;
+    }
+
+    .lightbox.is-open .lightbox-image { transform: scale(1); }
+
+    .lightbox-control {
+      position: fixed;
+      z-index: 2;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 46px;
+      height: 46px;
+      padding: 0;
+      border: 0;
+      color: var(--ink);
+      background: rgba(255, 255, 255, 0.82);
+      cursor: pointer;
+      font-size: 1.5rem;
+      line-height: 1;
+      appearance: none;
+    }
+
+    .lightbox-control:hover { background: #eee; }
+    .lightbox-close { top: 20px; right: 20px; font-size: 2rem; }
+    .lightbox-prev { top: calc(50% - 23px); left: 12px; }
+    .lightbox-next { top: calc(50% - 23px); right: 12px; }
+
+    .lightbox-count {
+      position: fixed;
+      right: 24px;
+      bottom: 18px;
+      margin: 0;
+      color: var(--muted);
+      font-size: 0.75rem;
+      letter-spacing: 0.08em;
+    }
+
+    @media (max-width: 720px) {
+      .site-header {
+        align-items: flex-start;
+        flex-direction: column;
+        padding-top: 28px;
+        padding-bottom: 40px;
+      }
+
+      .site-title { font-size: clamp(2rem, 10vw, 2.8rem); }
+      .site-nav { gap: 28px; font-size: 0.85rem; }
+      .gallery { column-count: 1; }
+      .site-footer { flex-direction: column; }
+      .lightbox-prev { left: 2px; }
+      .lightbox-next { right: 2px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { transition-duration: 0.01ms !important; }
+    }
+  </style>
+</head>
+<body>
+  <header class="site-header">
+    <h1 class="site-title">Xiaoyan Bai</h1>
+    <nav class="site-nav" aria-label="Primary navigation">
+      <a href="#gallery" aria-current="page">photography</a>
+      <a href="index.html">home</a>
+    </nav>
+  </header>
+
+  <main id="gallery" class="gallery" aria-label="Photography portfolio">
+    <button class="photo" type="button" aria-label="Enlarge photograph 1"><img src="photos/12EBF2BA-9333-4EBC-A4D2-3E1D185DDA81.jpg" alt="Photograph 1" width="2304" height="1536" loading="eager"></button>
+    <button class="photo" type="button" aria-label="Enlarge photograph 2"><img src="photos/C2F5A866-2EE3-49D4-93C0-C9BD64129BDF.JPG" alt="Photograph 2" width="1080" height="1616" loading="eager"></button>
+    <button class="photo" type="button" aria-label="Enlarge photograph 3"><img src="photos/4F203A21-804A-4E61-97AD-80F141BF5F34.jpg" alt="Photograph 3" width="2304" height="1536" loading="lazy"></button>
+    <button class="photo" type="button" aria-label="Enlarge photograph 4"><img src="photos/84405797-894E-4641-844F-1470CF4EF633.jpg" alt="Photograph 4" width="2304" height="1536" loading="lazy"></button>
+    <button class="photo" type="button" aria-label="Enlarge photograph 5"><img src="photos/EE033875-7EEF-46C7-BE48-037553D48750.jpg" alt="Photograph 5" width="1536" height="2106" loading="lazy"></button>
+    <button class="photo" type="button" aria-label="Enlarge photograph 6"><img src="photos/C59C3B09-A626-4256-8288-5C0EDDCFF967_1_102_o.jpeg" alt="Photograph 6" width="2172" height="1448" loading="lazy"></button>
+    <button class="photo" type="button" aria-label="Enlarge photograph 7"><img src="photos/CAF49F2F-5F4A-49DB-B28A-DB67633593F9.jpg" alt="Photograph 7" width="2304" height="1536" loading="lazy"></button>
+    <button class="photo" type="button" aria-label="Enlarge photograph 8"><img src="photos/3A017BDA-D68C-4E81-80FA-30F229FD13CD.jpg" alt="Photograph 8" width="2450" height="1537" loading="lazy"></button>
+    <button class="photo" type="button" aria-label="Enlarge photograph 9"><img src="photos/9C5C9946-8DB3-4D32-8B7A-22B70E713BAA_1_105_c.jpeg" alt="Photograph 9" width="1084" height="724" loading="lazy"></button>
+    <button class="photo" type="button" aria-label="Enlarge photograph 10"><img src="photos/837AA02A-B0A2-45C0-A763-59108413B788.jpg" alt="Photograph 10" width="2304" height="1536" loading="lazy"></button>
+    <button class="photo" type="button" aria-label="Enlarge photograph 11"><img src="photos/92D10DD2-C37E-4537-A99F-31A54968E825.jpg" alt="Photograph 11" width="2304" height="1536" loading="lazy"></button>
+    <button class="photo" type="button" aria-label="Enlarge photograph 12"><img src="photos/6B99FE1E-39C7-4050-8B05-4F3AFCE1B3FC.jpg" alt="Photograph 12" width="2304" height="1536" loading="lazy"></button>
+    <button class="photo" type="button" aria-label="Enlarge photograph 13"><img src="photos/_DSC3222.jpg" alt="Photograph 13" width="6000" height="4000" loading="lazy"></button>
+  </main>
+
+  <footer class="site-footer">
+    <span>Copyright © Xiaoyan Bai. All rights reserved.</span>
+    <span>Photography portfolio</span>
+  </footer>
+
+  <div class="lightbox" role="dialog" aria-modal="true" aria-label="Enlarged photograph" aria-hidden="true">
+    <img class="lightbox-image" src="" alt="">
+    <button class="lightbox-control lightbox-close" type="button" aria-label="Close enlarged photograph">&times;</button>
+    <button class="lightbox-control lightbox-prev" type="button" aria-label="Previous photograph">&#8249;</button>
+    <button class="lightbox-control lightbox-next" type="button" aria-label="Next photograph">&#8250;</button>
+    <p class="lightbox-count" aria-live="polite"></p>
+  </div>
+
+  <script>
+    (function () {
+      var photos = Array.prototype.slice.call(document.querySelectorAll('.photo'));
+      var lightbox = document.querySelector('.lightbox');
+      var lightboxImage = lightbox.querySelector('.lightbox-image');
+      var closeButton = lightbox.querySelector('.lightbox-close');
+      var previousButton = lightbox.querySelector('.lightbox-prev');
+      var nextButton = lightbox.querySelector('.lightbox-next');
+      var counter = lightbox.querySelector('.lightbox-count');
+      var activeIndex = 0;
+      var returnFocus = null;
+
+      function display(index) {
+        activeIndex = (index + photos.length) % photos.length;
+        var image = photos[activeIndex].querySelector('img');
+        lightboxImage.src = image.currentSrc || image.src;
+        lightboxImage.alt = image.alt;
+        counter.textContent = (activeIndex + 1) + ' / ' + photos.length;
+      }
+
+      function open(index) {
+        returnFocus = document.activeElement;
+        display(index);
+        lightbox.classList.add('is-open');
+        lightbox.setAttribute('aria-hidden', 'false');
+        document.body.classList.add('lightbox-open');
+        closeButton.focus();
+      }
+
+      function close() {
+        lightbox.classList.remove('is-open');
+        lightbox.setAttribute('aria-hidden', 'true');
+        document.body.classList.remove('lightbox-open');
+        lightboxImage.src = '';
+        if (returnFocus) returnFocus.focus();
+      }
+
+      photos.forEach(function (photo, index) {
+        photo.addEventListener('click', function () { open(index); });
+      });
+
+      closeButton.addEventListener('click', close);
+      previousButton.addEventListener('click', function () { display(activeIndex - 1); });
+      nextButton.addEventListener('click', function () { display(activeIndex + 1); });
+      lightbox.addEventListener('click', function (event) {
+        if (event.target === lightbox) close();
+      });
+
+      document.addEventListener('keydown', function (event) {
+        if (!lightbox.classList.contains('is-open')) return;
+        if (event.key === 'Escape') close();
+        if (event.key === 'ArrowLeft') display(activeIndex - 1);
+        if (event.key === 'ArrowRight') display(activeIndex + 1);
+      });
+    }());
+  </script>
+</body>
+</html>

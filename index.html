@@ -32,6 +32,19 @@
 			.profile-content {
 				flex: 1;
 			}
+
+			#intro .profile-content p a,
+			#intro .profile-news-list a {
+				color: #625489;
+				border-bottom-color: currentColor;
+				font-weight: normal;
+			}
+
+			#intro .profile-content p a:hover,
+			#intro .profile-news-list a:hover {
+				color: #73669e;
+				border-bottom-color: transparent;
+			}
 			
 			.profile-photo {
 				flex-shrink: 0;
@@ -41,6 +54,70 @@
 				width: 300px;
 				height: 300px;
 				border-radius: 8px;
+			}
+
+			.profile-aside {
+				flex: 0 0 300px;
+				width: 300px;
+			}
+
+			.profile-news {
+				margin-top: 1.25em;
+				padding: 1em 1.15em;
+				border: 1px solid rgba(109, 139, 116, 0.3);
+				border-radius: 8px;
+				background: rgba(255, 255, 255, 0.22);
+			}
+
+			.profile-news h3 {
+				margin: 0 0 0.65em;
+				font-size: 1em;
+			}
+
+			.profile-news-list {
+				max-height: 13em;
+				overflow-y: auto;
+				padding-right: 0.55em;
+				scrollbar-color: #6D8B74 transparent;
+				scrollbar-width: thin;
+			}
+
+			.profile-news-list:focus-visible {
+				outline: 2px solid #6D8B74;
+				outline-offset: 3px;
+			}
+
+			.profile-news-list ul {
+				list-style: none;
+				margin: 0;
+				padding: 0;
+			}
+
+			.profile-news-list li {
+				border-top: 1px solid rgba(109, 139, 116, 0.25);
+				padding: 0.8em 0;
+				font-size: 0.8em;
+				line-height: 1.5;
+			}
+
+			.profile-news-list li:first-child {
+				border-top: 0;
+				padding-top: 0;
+			}
+
+			.profile-news-list li:last-child {
+				padding-bottom: 0;
+			}
+
+			.profile-news-list .news-year {
+				display: block;
+				font-size: 0.75em;
+				font-weight: bold;
+				letter-spacing: 0.08em;
+			}
+
+			.profile-news-list a {
+				text-wrap: pretty;
 			}
 			
 			.blog-item, .publication-item {
@@ -125,6 +202,57 @@
 			}
 
 
+			/* CV and experience layout */
+			.cv-group + .cv-group {
+				margin-top: 2.5em;
+			}
+
+			.cv-rows {
+				margin: 0;
+			}
+
+			.cv-row {
+				display: grid;
+				grid-template-columns: 9em minmax(0, 1fr);
+				gap: 0.5em;
+				margin-bottom: 0.3em;
+				line-height: 1.4;
+			}
+
+			.cv-group[aria-labelledby="teaching-heading"] .cv-row {
+				grid-template-columns: 14em minmax(0, 1fr);
+			}
+
+			.cv-row dt {
+				font-weight: bold;
+			}
+
+			.cv-row dd {
+				margin: 0;
+				min-width: 0;
+				text-wrap: pretty;
+			}
+
+			.cv-row dd span {
+				display: block;
+			}
+
+			.cv-row dd span + span {
+				margin-top: 0.2em;
+			}
+
+			@media screen and (max-width: 736px) {
+				.cv-row {
+					grid-template-columns: 1fr;
+					gap: 0.1em;
+					margin-bottom: 0.65em;
+				}
+
+				.cv-group[aria-labelledby="teaching-heading"] .cv-row {
+					grid-template-columns: 1fr;
+				}
+			}
+
 			/* Mobile responsive styles */
 			@media screen and (max-width: 980px) {
 				.profile-layout {
@@ -136,8 +264,14 @@
 					text-align: left; /* Keep text left-aligned */
 				}
 				
+				.profile-aside {
+					order: -1; /* Keep photo and news together above text on mobile */
+					width: min(100%, 400px);
+					flex-basis: auto;
+					margin: 0 auto;
+				}
+
 				.profile-photo {
-					order: -1; /* Move photo above text on mobile */
 					text-align: center; /* Center only the photo */
 				}
 				
@@ -249,17 +383,21 @@
 										</a>
 										, advised by 
 										<a href=" https://chenhaot.com/"> Chenhao Tan
-										</a>.  I am also a member of  <a href="https://chicagohai.github.io/">Chicago Human+AI</a> lab.
+										</a>.  I am also a member of  <a href="https://chicagohai.github.io/">Chicago Human+AI</a> lab. I was a scholar in the <a href="https://www.matsprogram.org/">MATS 10.0</a> cohort mentored by <a href="https://www.matsprogram.org/alumni/alan-cooney">Alan Cooney</a>.
 									</p>
 									
 									<p>
-										Before that, I earned B.E in Computer Science at CSE at Univeristy of Michigan, Ann Arbor. During my undergrad study, I was honored to be a member of <a href="https://lit.eecs.umich.edu/">Language and Information Technologies (LIT) lab group </a> to work with <a href="https://web.eecs.umich.edu/~mihalcea/">Rada Mihalcea</a>. I also worked on NLP inference time efficiency in <a href="https://web.eecs.umich.edu/~aprakash/">Atul Prakash</a>'s group. I am interested in doing research in Natural Language Processing. At the same time, I like <a href="photos.html" class="interest-link" data-tooltip="Check out the photos ">photography</a> and <a href="games.html" class="interest-link" data-tooltip="Check out the games"> game development</a>.
+										Before that, I earned B.E in Computer Science at CSE at Univeristy of Michigan, Ann Arbor. During my undergrad study, I was honored to be a member of <a href="https://lit.eecs.umich.edu/">Language and Information Technologies (LIT) lab group </a> to work with <a href="https://ajyl.github.io/about">Dr. Andrew Lee</a> and <a href="https://web.eecs.umich.edu/~mihalcea/">Professor Rada Mihalcea</a>. I also worked on NLP inference time efficiency with <a href="https://zhenghaizhong.com/">Dr. Haizhong Zheng</a> in <a href="https://web.eecs.umich.edu/~aprakash/">Professor Atul Prakash</a>'s group.
+									</p>
+
+									<p>
+										When I am not doing research, I like traveling, <a href="photos.html" class="interest-link" data-tooltip="Check out the photos ">photography</a> and <a href="games.html" class="interest-link" data-tooltip="Check out the games I made"> games</a>.
 									</p>
 									
 									<p>
-										<b>Research Interest:</b> As machine learning continues to advance, so does the potential for the digital divide and inequality to widen. 
+										<b>Research Interest:</b> As machine learning continues to advance, so does the potential for the digital divide and unsafety to widen. 
 										These issues motivate my research in building transparent, efficient, and more accessible tools for social good. 
-										I believe this can be done by building interpretable models or building more cost-efficient methods.
+										I believe this can be done by building interpretable models and understanding models. In general, I am interested in AI safety, interpretability, and agentic workflow.
 									</p>
 									
 									<ul class="actions">
@@ -267,8 +405,20 @@
 									</ul>
 								</div>
 								
-								<div class="profile-photo">
-									<img src="./images/profile_photo.png" alt="profile" />
+								<div class="profile-aside">
+									<div class="profile-photo">
+										<img src="./images/profile_photo.png" alt="profile" />
+									</div>
+									<section class="profile-news" aria-labelledby="profile-news-heading">
+										<h3 id="profile-news-heading">News</h3>
+										<div class="profile-news-list" tabindex="0" aria-label="News updates, scroll for more">
+											<ul>
+												<li><span class="news-year">2026</span>I will be organizing the <a href="https://interpretability4discovery.github.io/">Interp4Discovery workshop</a> at NeurIPS 2026.</li>
+												<li><span class="news-year">2026</span><a href="https://arxiv.org/abs/2604.24658">The Last Human-Written Paper: Agent-Native Research Artifacts</a> was accepted at NeurIPS 2026.</li>
+												<li><span class="news-year">2026</span><a href="https://arxiv.org/abs/2602.18458">The Story is Not the Science</a> received the ICML AI4Science workshop Best Poster Award.</li>
+											</ul>
+										</div>
+									</section>
 								</div>
 							</div>
 							
@@ -452,95 +602,37 @@
 					<!-- Two -->
 					<section id="two" class="wrapper style3 fade-up">
 						<div class="inner">
-							<h2>Services</h2>
-								<li>Organizer for NeurIPS 2026 <a href="https://interpretability4discovery.github.io/">Interpretability for Discovery workshop</a></li>
-								<li>Reviewer for TMLR</li>
-								<li>Reviewer for COML 2026</li>
-								<li>Reviewer for ICML 2026 (<b>Gold Reviewer</b>)</li>
-							    <li>Reviewer for ICLR 2026</li>
-								<li>Reviewer for NeurIPS 2025</li>
-								<li>Reviewer for ICLR (SCOPE and DeLTa workshop) 2025</li>
-								<li>Reviewer for ACL ARR 2024</li>
-							
-							<br>
-							
-							<h2>Teaching & Work Experience</h2>
-								<li><b>TA for CMSC25300:</b> Mathematical Foundation of Machine Learning (Fall 2024) -- University of Chicago
-								</li>
-								<li><b>Grader for EECS 376:</b> Foundations of Computer Science (Fall 2023) -- University of Michigan</li>
-								<li><b>TA for Serious Game and AI</b> (Summer 2023) -- MIT Beaver Works Summer Institute</li>
-								<li>During the winter of 2021, I worked as an intern in 
-									<a href="http://www.emogent.com/en/about">
-										Emogent
-									</a> 
-									to help develop human-machine interactive product, Irene, who are also considered 
-									as a hyper-realistic artificial intelligence.
-								</li>
-								<!-- <li>
-									During the summer of 2022, I worked as a research assistant in
-									<a href="https://lwdlab.sjtu.edu.cn/enindex.html">
-										Li WeiDong Laboratory
-									</a>
-									with 
-									<a href="https://lwdlab.sjtu.edu.cn/teachers/89.html">
-										Binglei Zhao
-									</a>
-									as my advisor. We used computor visualization tool to 
-									worked on how depression affect human's imagery and visual rumination.
-									Starting from Fall 2022, I have been an undergrad research assistant in <a href="https://lit.eecs.umich.edu/">
-										LIT lab
-									</a> working on NLP research for social good 
-								</li>
+							<section class="cv-group" aria-labelledby="professional-experience-heading">
+								<h2 id="professional-experience-heading">Professional Experience</h2>
+								<dl class="cv-rows">
+									<div class="cv-row"><dt>Microsoft</dt><dd>AI Research Intern (2026)</dd></div>
+									<div class="cv-row"><dt><a href="http://www.emogent.com/en/about">Emogent</a></dt><dd>Data Science Intern (2021)</dd></div>
+								</dl>
+							</section>
 
-								<li> 	
-									Starting from May 2023, I have also been an undergrad research assistant working on NLP inference time efficiency in 
-									<a href="https://web.eecs.umich.edu/~aprakash/">Prof. Atul Prakash</a>'s group. 
-									In the summer of 2023, I worked as a teaching assistant for Serious Game and AI in
-									<a href="https://beaverworks.ll.mit.edu/CMS/bw/bwsi">
-										Beaver Works Summer Institue MIT
-									</a> to teach high school student about machine learning basics and game development and design to 
-									let them use games and AI to simulate social problems. 
-									In Fall 2023, I worked as a grader for <a href="https://eecs376.org/">EECS 376</a>: Foundations of Computer Science
-								</li>
-								<li>
-									In Fall 2024, I am working as a teaching assistant f
-								</li> -->
-								</p>
-							</p>
-							<!--
-							<div class="features">
-								<section>
-									<span class="icon solid major fa-code"></span>
-									<h3>Lorem ipsum amet</h3>
-									<p>Phasellus convallis elit id ullam corper amet et pulvinar. Duis aliquam turpis mauris, sed ultricies erat dapibus.</p>
-								</section>
-								<section>
-									<span class="icon solid major fa-lock"></span>
-									<h3>Aliquam sed nullam</h3>
-									<p>Phasellus convallis elit id ullam corper amet et pulvinar. Duis aliquam turpis mauris, sed ultricies erat dapibus.</p>
-								</section>
-								<section>
-									<span class="icon solid major fa-cog"></span>
-									<h3>Sed erat ullam corper</h3>
-									<p>Phasellus convallis elit id ullam corper amet et pulvinar. Duis aliquam turpis mauris, sed ultricies erat dapibus.</p>
-								</section>
-								<section>
-									<span class="icon solid major fa-desktop"></span>
-									<h3>Veroeros quis lorem</h3>
-									<p>Phasellus convallis elit id ullam corper amet et pulvinar. Duis aliquam turpis mauris, sed ultricies erat dapibus.</p>
-								</section>
-								<section>
-									<span class="icon solid major fa-link"></span>
-									<h3>Urna quis bibendum</h3>
-									<p>Phasellus convallis elit id ullam corper amet et pulvinar. Duis aliquam turpis mauris, sed ultricies erat dapibus.</p>
-								</section>
-								<section>
-									<span class="icon major fa-gem"></span>
-									<h3>Aliquam urna dapibus</h3>
-									<p>Phasellus convallis elit id ullam corper amet et pulvinar. Duis aliquam turpis mauris, sed ultricies erat dapibus.</p>
-								</section>
-							</div>
-							-->
+							<section class="cv-group" aria-labelledby="service-heading">
+								<h2 id="service-heading">Service</h2>
+								<dl class="cv-rows">
+									<div class="cv-row"><dt>Organizer</dt><dd>NeurIPS 2026 <a href="https://interpretability4discovery.github.io/">Interpretability for Discovery workshop</a></dd></div>
+									<div class="cv-row">
+										<dt>Reviewer</dt>
+										<dd>
+											<span>TMLR; COML 2026; ICML 2026 (<b>Gold Reviewer</b>); ICLR 2026</span>
+											<span>NeurIPS 2025; ICLR SCOPE and DeLTa workshops 2025; ACL ARR 2024</span>
+										</dd>
+									</div>
+								</dl>
+							</section>
+
+							<section class="cv-group" aria-labelledby="teaching-heading">
+								<h2 id="teaching-heading">Teaching</h2>
+								<dl class="cv-rows">
+									<div class="cv-row"><dt>University of Chicago</dt><dd>Teaching Assistant, CMSC 25300: Mathematical Foundations of Machine Learning (Fall 2024)</dd></div>
+									<div class="cv-row"><dt>University of Michigan</dt><dd>Grader, EECS 376: Foundations of Computer Science (Fall 2023)</dd></div>
+									<div class="cv-row"><dt>MIT Beaver Works Summer Institute</dt><dd>Teaching Assistant, Serious Game and AI (Summer 2023)</dd></div>
+								</dl>
+							</section>
+
 							<ul class="actions">
 								<li><a href="https://elena-baixy.github.io/cv.pdf" class="button">CV</a></li>
 							</ul>
@@ -621,7 +713,7 @@
 			<footer id="footer" class="wrapper style1-alt">
 				<div class="inner">
 					<ul class="menu">
-						<li>&copy; 2026.02</li><li> </a></li>
+						<li>&copy; 2026.10</li><li> </a></li>
 					</ul>
 				</div>
 			</footer>
